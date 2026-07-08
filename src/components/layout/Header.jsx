@@ -1,5 +1,6 @@
 import { FaBell } from "react-icons/fa";
 import { MdOutlineLightMode } from "react-icons/md";
+import logo from "../../assets/logos/Eduhome Logo.png";
 
 function Header() {
 
@@ -16,17 +17,30 @@ function Header() {
 
         <header className="bg-white border-b h-20 px-8 flex items-center justify-between">
 
+
             {/* Left */}
 
-            <div>
 
-                <h2 className="text-2xl font-bold text-slate-800">
-                    Good Morning, Anandhu 👋
-                </h2>
 
-                <p className="text-gray-500 text-sm mt-1">
-                    {date}
-                </p>
+            <div className="flex items-center gap-4">
+
+                <img
+                    src={logo}
+                    alt="EduHome Logo"
+                    className="w-24 h-24 object-contain"
+                />
+
+                <div>
+
+                    <h2 className="text-2xl font-bold text-slate-800">
+                        Good Morning, Anandhu 👋
+                    </h2>
+
+                    <p className="text-gray-500 text-sm mt-1">
+                        {date}
+                    </p>
+
+                </div>
 
             </div>
 

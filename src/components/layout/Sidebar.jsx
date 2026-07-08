@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { sidebarMenu } from "../../utils/sidebarMenu";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logos/Eduhome Logo.png";
 
 function Sidebar() {
 
@@ -19,9 +20,12 @@ function Sidebar() {
 
             {/* Logo */}
             <div className="h-16 flex items-center justify-center border-b border-slate-700">
-                <h1 className="text-2x1 font-bold text-blue-400">
-                    EduHome
-                </h1>
+
+                <img
+                    src={logo}
+                    alt="EduHome Logo"
+                    className="w-30 h-30 object-contain"
+                />
             </div>
 
             {/* Navigation */}

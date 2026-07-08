@@ -1,38 +1,30 @@
+import chapter1 from "../assets/videos/chapter 1.mp4"
+import chapter2 from "../assets/videos/chapter 2.mp4"
+import chapter3 from "../assets/videos/chapter 3.mp4"
+
+
+
 const videos = [
-  // Chapter 1
   {
     id: 1,
     chapterId: 1,
     title: "Introduction to React",
-    duration: "12 min",
+    duration: "2m 43s",
+    file: chapter1,
   },
-  {
+   {
     id: 2,
-    chapterId: 1,
-    title: "Installing React",
-    duration: "18 min",
+    chapterId: 2,
+    title: "JSX Fundamentals",
+    duration: "2m 47s",
+    file: chapter2,
   },
-
-  // Chapter 2
   {
     id: 3,
-    chapterId: 2,
-    title: "Understanding JSX",
-    duration: "15 min",
-  },
-  {
-    id: 4,
-    chapterId: 2,
-    title: "JSX Rules",
-    duration: "20 min",
-  },
-
-  // Chapter 3
-  {
-    id: 5,
     chapterId: 3,
-    title: "useState Basics",
-    duration: "16 min",
+    title: "React Components",
+    duration: "2m 32s",
+    file: chapter3,
   },
 ];
 

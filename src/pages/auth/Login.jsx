@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logos/Eduhome Logo.png";
 
 function Login() {
 
@@ -28,13 +29,22 @@ function Login() {
 
       <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8">
 
-        <h1 className="text-3xl font-bold text-center">
-          EduHome
-        </h1>
+        <div className="flex justify-center mb-8">
 
-        <p className="text-center text-gray-500 mt-2">
-          Student Login
-        </p>
+          <img
+            src={logo}
+            alt="EduHome Logo"
+            className="w-44 object-contain"
+          />
+
+        </div>
+        <div className="text-center mb-8">
+
+          <h2 className="text-3xl font-bold text-slate-800">
+            Student Login
+          </h2>
+
+        </div>
 
         <div className="mt-8">
 
