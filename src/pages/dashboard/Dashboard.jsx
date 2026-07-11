@@ -138,7 +138,7 @@ function Dashboard() {
 
       {/* <UpcomingClassCard /> */}
 
-      <section>
+      {/* <section>
 
         <h2 className="text-2xl font-bold mb-5">
           Upcoming Classes
@@ -159,11 +159,11 @@ function Dashboard() {
 
         </div>
 
-      </section>
+      </section> */}
 
       {/* <AnnouncementCard /> */}
 
-      <section>
+      {/* <section>
 
         <h2 className="text-2xl font-bold mb-5">
           Announcements
@@ -184,7 +184,7 @@ function Dashboard() {
 
         </div>
 
-      </section>
+      </section> */}
 
     </div>
   );

@@ -1,24 +1,62 @@
 import { Link } from "react-router-dom";
+import { FaPlayCircle } from "react-icons/fa";
 
 function VideoCard({ video }) {
   return (
     <Link
       to={`/videoplayers/${video.id}`}
-      className="block"
+      className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
     >
-      <div className="bg-white border rounded-xl shadow-sm p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+      {/* Thumbnail */}
+      <div className="relative h-52 bg-slate-200">
 
-        <h2 className="text-xl font-semibold">
+        <img
+          src="https://placehold.co/600x400"
+          alt={video.title}
+          className="w-full h-full object-cover"
+        />
+
+        {/* Play Icon */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition">
+          <FaPlayCircle
+            className="text-white text-6xl opacity-90 group-hover:scale-110 transition"
+          />
+        </div>
+
+        {/* Duration */}
+        <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-3 py-1 rounded-full">
+          {video.duration}
+        </span>
+
+      </div>
+
+      {/* Content */}
+      <div className="p-5">
+
+        <h2 className="text-xl font-bold text-slate-800 line-clamp-2">
           {video.title}
         </h2>
 
-        <p className="text-gray-500 mt-2">
-          Duration : {video.duration}
+        <p className="text-sm text-gray-500 mt-2">
+          React Development
         </p>
 
-        <p className="mt-5 text-blue-600 font-medium">
-          Click to Watch →
-        </p>
+        <div className="mt-4">
+
+          <div className="flex justify-between text-sm mb-2">
+            <span className="text-gray-500">Progress</span>
+            <span className="font-semibold text-blue-600">
+              40%
+            </span>
+          </div>
+
+          <div className="w-full h-2 bg-gray-200 rounded-full">
+
+            <div className="w-[40%] h-2 bg-blue-600 rounded-full"></div>
+
+          </div>
+
+        </div>
 
       </div>
     </Link>
