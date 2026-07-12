@@ -11,25 +11,68 @@ function Chapters() {
   );
 
   return (
-    <div>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Chapters
-      </h1>
+    <div className="space-y-6">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Page Header */}
+
+      <div>
+
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
+
+          Chapters
+
+        </h1>
+
+        <p className="text-gray-500 mt-2 text-sm md:text-base">
+
+          Select a chapter to view the available videos.
+
+        </p>
+
+      </div>
+
+      {/* Chapters Grid */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
 
         {filteredChapters.map((chapter) => (
+
           <ChapterCard
             key={chapter.id}
             chapter={chapter}
           />
+
         ))}
 
       </div>
 
+      {/* Empty State */}
+
+      {filteredChapters.length === 0 && (
+
+        <div className="bg-white rounded-2xl border p-10 text-center">
+
+          <h2 className="text-xl font-semibold">
+
+            No Chapters Available
+
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+
+            Chapters will appear here once they are assigned.
+
+          </p>
+
+        </div>
+
+      )}
+
     </div>
+
   );
+
 }
 
 export default Chapters;

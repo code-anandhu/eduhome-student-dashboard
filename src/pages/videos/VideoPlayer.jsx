@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import videos from "../../data/videos"
-
+import videos from "../../data/videos";
 
 function VideoPlayer() {
 
@@ -9,48 +8,77 @@ function VideoPlayer() {
     const video = videos.find(
         (item) => item.id === Number(videoId)
     );
+
     if (!video) {
         return (
             <div className="text-center mt-20">
+
                 <h2 className="text-2xl font-bold">
+
                     Video Not Found
+
                 </h2>
+
             </div>
         );
     }
 
-
     return (
 
-        <div>
+        <div className="space-y-6">
 
-            <h1 className="text-3xl font-bold mb-6">
-                Video Player
-            </h1>
+            {/* Page Header */}
 
-           <div className="flex justify-center">
+            <div>
 
-    <video
-        src={video.file}
-        controls
-        className=" max-w-4xl  max-auto rounded-2xl shadow-xl bg-black"
-    >
-        Your browser does not support the video tag.
-    </video>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
 
-</div>
+                    Video Player
 
-          <div className="max-w-5xl mx-auto mt-6 bg-white rounded-xl shadow-sm border p-6">
+                </h1>
 
-    <h2 className="text-2xl font-bold">
-        {video.title}
-    </h2>
+                <p className="text-gray-500 mt-2 text-sm md:text-base">
 
-    <p className="text-gray-500 mt-2">
-        Duration : {video.duration}
-    </p>
+                    Watch your lesson and continue learning.
 
-</div>
+                </p>
+
+            </div>
+
+            {/* Video */}
+
+            <div className="flex justify-center">
+
+                <video
+                    src={video.file}
+                    controls
+                    className="w-full max-w-5xl aspect-video rounded-2xl shadow-xl bg-black"
+                >
+
+                    Your browser does not support the video tag.
+
+                </video>
+
+            </div>
+
+            {/* Video Details */}
+
+            <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-6">
+
+                <h2 className="text-xl md:text-2xl font-bold text-slate-800">
+
+                    {video.title}
+
+                </h2>
+
+                <p className="text-gray-500 mt-3 text-sm md:text-base">
+
+                    Duration : {video.duration}
+
+                </p>
+
+            </div>
+
         </div>
 
     );

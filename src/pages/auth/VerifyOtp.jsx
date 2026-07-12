@@ -12,7 +12,7 @@ function VerifyOtp() {
 
         if (otp === "123456") {
 
-          localStorage.setItem("isLoggedIn","true");
+            localStorage.setItem("isLoggedIn", "true");
 
             navigate("/dashboard");
 
@@ -26,72 +26,83 @@ function VerifyOtp() {
 
     return (
 
-        <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
 
-            <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8">
+            <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 sm:p-8">
 
-                <h1 className="text-3xl font-bold text-center">
+                {/* Heading */}
 
-                    Verify OTP
+                <div className="text-center">
 
-                </h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
 
-                <p className="text-center text-gray-500 mt-2">
+                        Verify OTP
 
-                    Enter the 6-digit OTP
+                    </h1>
 
-                </p>
+                    <p className="text-gray-500 mt-2 text-sm md:text-base">
 
-                <input
-
-                    type="text"
-
-                    placeholder="Enter OTP"
-
-                    value={otp}
-
-                    onChange={(e) => setOtp(e.target.value)}
-
-                    className="w-full border rounded-lg px-4 py-3 mt-8"
-
-                />
-
-                {
-
-                    error &&
-
-                    <p className="text-red-500 mt-3">
-
-                        {error}
+                        Enter the 6-digit OTP sent to your registered mobile number.
 
                     </p>
 
-                }
+                </div>
+
+                {/* OTP Input */}
+
+                <div className="mt-8">
+
+                    <input
+                        type="text"
+                        placeholder="Enter OTP"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+
+                    {error && (
+
+                        <p className="text-red-500 text-sm mt-3">
+
+                            {error}
+
+                        </p>
+
+                    )}
+
+                </div>
+
+                {/* Verify Button */}
 
                 <button
-
                     onClick={handleVerify}
-
-                    className="w-full mt-8 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-
+                    className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition"
                 >
 
                     Verify OTP
 
                 </button>
-<div className="mt-5 text-center">
 
-  <p className="text-sm text-gray-500">
-    Didn't receive the OTP?
-  </p>
+                {/* Resend */}
 
-  <button
-    className="mt-2 text-blue-600 font-medium hover:text-blue-700 transition"
-  >
-    Resend OTP
-  </button>
+                <div className="mt-6 text-center">
 
-</div>
+                    <p className="text-sm text-gray-500">
+
+                        Didn't receive the OTP?
+
+                    </p>
+
+                    <button
+                        className="mt-2 text-blue-600 font-medium hover:text-blue-700 transition"
+                    >
+
+                        Resend OTP
+
+                    </button>
+
+                </div>
+
             </div>
 
         </div>
