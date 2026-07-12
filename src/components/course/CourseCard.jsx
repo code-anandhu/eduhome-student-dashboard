@@ -2,31 +2,40 @@ import { Link } from "react-router-dom";
 
 function CourseCard({ course }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-lg transition duration-300">
+    <div className="bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-xl transition-all duration-300">
 
       {/* Course Image */}
+
       <img
         src={course.image}
         alt={course.title}
-        className="w-full h-48 object-cover"
+        className="w-full h-44 sm:h-48 object-cover"
       />
 
       {/* Content */}
-      <div className="p-5">
 
-        <h2 className="text-xl font-bold text-slate-800">
+      <div className="p-4 sm:p-5 md:p-6">
+
+        <h2 className="text-lg md:text-xl font-bold text-slate-800 line-clamp-2">
+
           {course.title}
+
         </h2>
 
-        <p className="text-gray-500 mt-1">
+        <p className="text-gray-500 text-sm md:text-base mt-2">
+
           Instructor : {course.instructor}
+
         </p>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-gray-500 text-sm md:text-base mt-2">
+
           Subjects : {course.subjects}
+
         </p>
 
         {/* Progress */}
+
         <div className="mt-5">
 
           <div className="flex justify-between text-sm mb-2">
@@ -40,7 +49,7 @@ function CourseCard({ course }) {
           <div className="w-full bg-gray-200 rounded-full h-2">
 
             <div
-              className="bg-blue-600 h-2 rounded-full"
+              className="bg-blue-600 h-2 rounded-full transition-all duration-500"
               style={{
                 width: `${course.progress}%`,
               }}
@@ -52,9 +61,11 @@ function CourseCard({ course }) {
 
         <Link
           to={`/subjects/${course.id}`}
-          className="block mt-6 bg-blue-600 text-white text-center py-3 rounded-xl hover:bg-blue-700 transition"
+          className="block mt-6 bg-blue-600 hover:bg-blue-700 text-white text-center py-2.5 md:py-3 rounded-xl transition"
         >
+
           Open Course
+
         </Link>
 
       </div>

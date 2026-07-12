@@ -11,13 +11,30 @@ function Subject() {
   );
 
   return (
-    <div>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Subjects
-      </h1>
+    <div className="space-y-6">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Page Title */}
+
+      <div>
+
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
+
+          Subjects
+
+        </h1>
+
+        <p className="text-gray-500 mt-2 text-sm md:text-base">
+
+          Select a subject to continue your learning.
+
+        </p>
+
+      </div>
+
+      {/* Subject List */}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
 
         {filteredSubjects.map((subject) => (
 
@@ -30,8 +47,32 @@ function Subject() {
 
       </div>
 
+      {/* Empty State */}
+
+      {filteredSubjects.length === 0 && (
+
+        <div className="bg-white rounded-2xl border p-10 text-center">
+
+          <h2 className="text-xl font-semibold">
+
+            No Subjects Available
+
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+
+            Subjects will appear here once they are assigned.
+
+          </p>
+
+        </div>
+
+      )}
+
     </div>
+
   );
+
 }
 
 export default Subject;
