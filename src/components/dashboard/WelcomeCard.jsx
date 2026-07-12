@@ -1,16 +1,22 @@
 function WelcomeCard() {
     return (
-        <div className="bg-white rounded-2xl shadow-sm border p-8">
 
-            <h1 className="text-4xl font-bold text-slate-800">
+        <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-6 md:p-8">
+
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 leading-tight">
+
                 Welcome Back, Anandhu 👋
+
             </h1>
 
-            <p className="text-slate-500 mt-3 text-lg">
+            <p className="text-slate-500 mt-3 text-sm sm:text-base md:text-lg">
+
                 Continue your learning journey and complete today's lessons.
+
             </p>
 
         </div>
+
     );
 }
 

@@ -78,7 +78,7 @@ function Dashboard() {
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
 
       <WelcomeCard />
 
@@ -90,7 +90,7 @@ function Dashboard() {
 
       <section>
 
-        <h2 className="text-2xl font-bold mb-5">
+        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-5">
           My Courses
         </h2>
 
@@ -116,7 +116,7 @@ function Dashboard() {
 
       <section>
 
-        <h2 className="text-2xl font-bold mb-5">
+        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-5">
           Recent Videos
         </h2>
 
@@ -136,55 +136,7 @@ function Dashboard() {
 
       </section>
 
-      {/* <UpcomingClassCard /> */}
-
-      {/* <section>
-
-        <h2 className="text-2xl font-bold mb-5">
-          Upcoming Classes
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {upcomingClasses.map((item) => (
-
-            <UpcomingClassCard
-              key={item.id}
-              subject={item.subject}
-              date={item.date}
-              time={item.time}
-            />
-
-          ))}
-
-        </div>
-
-      </section> */}
-
-      {/* <AnnouncementCard /> */}
-
-      {/* <section>
-
-        <h2 className="text-2xl font-bold mb-5">
-          Announcements
-        </h2>
-
-        <div className="space-y-4">
-
-          {announcements.map((item) => (
-
-            <AnnouncementCard
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              date={item.date}
-            />
-
-          ))}
-
-        </div>
-
-      </section> */}
+    
 
     </div>
   );

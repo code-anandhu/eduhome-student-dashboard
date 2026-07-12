@@ -1,8 +1,8 @@
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaBars } from "react-icons/fa";
 import { MdOutlineLightMode } from "react-icons/md";
 import logo from "../../assets/logos/Eduhome Logo.png";
 
-function Header() {
+function Header({setSidebarOpen}) {
 
     const today = new Date();
 
@@ -13,82 +13,96 @@ function Header() {
         year: "numeric",
     });
 
-    return (
+  return (
 
-        <header className="bg-white border-b h-20 px-8 flex items-center justify-between">
+<header className="bg-white border-b px-4 md:px-8 h-20 flex items-center justify-between">
 
+    {/* Left */}
 
-            {/* Left */}
+    <div className="flex items-center gap-3">
 
+        {/* Mobile Menu */}
 
+        <button
+            className="lg:hidden"
+            onClick={() => setSidebarOpen(true)}
+        >
+            <FaBars size={22} />
+        </button>
 
-            <div className="flex items-center gap-4">
+        <img
+            src={logo}
+            alt="EduHome Logo"
+            className="w-20 md:w-24 object-contain"
+        />
 
-                <img
-                    src={logo}
-                    alt="EduHome Logo"
-                    className="w-24 h-24 object-contain"
-                />
+        <div className="hidden sm:block">
 
-                <div>
+            <h2 className="text-lg md:text-2xl font-bold text-slate-800">
 
-                    <h2 className="text-2xl font-bold text-slate-800">
-                        Good Evening, Anandhu 👋
-                    </h2>
+                Good Evening, Anandhu 👋
 
-                    <p className="text-gray-500 text-sm mt-1">
-                        {date}
-                    </p>
+            </h2>
 
-                </div>
+            <p className="text-gray-500 text-sm">
 
-            </div>
+                {date}
 
-            {/* Right */}
+            </p>
 
-            <div className="flex items-center gap-4">
+        </div>
 
-                <button className="w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
+    </div>
 
-                    <MdOutlineLightMode size={20} />
+    {/* Right */}
 
-                </button>
+    <div className="flex items-center gap-2 md:gap-4">
 
-                <button className="relative w-11 h-11 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
+        <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
 
-                    <FaBell size={18} />
+            <MdOutlineLightMode size={18} />
 
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
 
-                </button>
+        <button className="relative w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
 
-                <div className="flex items-center gap-3">
+            <FaBell size={16} />
 
-                    <div className="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
 
-                        A
+        </button>
 
-                    </div>
+        <div className="flex items-center gap-2">
 
-                    <div className="hidden md:block">
+            <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
 
-                        <h3 className="font-semibold">
-                            Anandhu
-                        </h3>
-
-                        <p className="text-xs text-gray-500">
-                            Student
-                        </p>
-
-                    </div>
-
-                </div>
+                A
 
             </div>
 
-        </header>
+            <div className="hidden md:block">
 
-    );
+                <h3 className="font-semibold">
+
+                    Anandhu
+
+                </h3>
+
+                <p className="text-xs text-gray-500">
+
+                    Student
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+);
 
 }
 

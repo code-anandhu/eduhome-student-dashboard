@@ -3,67 +3,110 @@ import { sidebarMenu } from "../../utils/sidebarMenu";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/Eduhome Logo.png";
 
-function Sidebar() {
+function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     const navigate = useNavigate();
 
     const handleLogout = () => {
 
         localStorage.removeItem("isLoggedIn");
-
         navigate("/login");
 
     };
 
     return (
-        <aside className="w-64 bg-slate-900 text-white flex flex-col">
 
-            {/* Logo */}
-            <div className="h-16 flex items-center justify-center border-b border-slate-700">
+        <>
+            {/* Mobile Overlay */}
+            {
+                sidebarOpen && (
+                    <div
+                        className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                        onClick={() => setSidebarOpen(false)}
+                    />
+                )
+            }
 
-                <img
-                    src={logo}
-                    alt="EduHome Logo"
-                    className="w-30 h-30 object-contain"
-                />
-            </div>
-
-            {/* Navigation */}
-            <nav className="mt-6 flex-1">
-
-                {sidebarMenu.map((item) => {
-                    const Icon = item.icon;
-
-                    return (
-                        <NavLink className={({ isActive }) =>
-                            `flex items-center gap-3 px-6 py-3 transition-all ${isActive
-                                ? "bg-blue-600 text-white"
-                                : "text-gray-300 hover:bg-slate-800"
-                            }`
-                        }
-                            key={item.path}
-                            to={item.path}
-                        >
-                            <Icon />
-                            <span>{item.title}</span>
-                        </NavLink>
-                    );
-                })}
-
-            </nav>
-
-            {/* Footer */}
-            <button
-                onClick={handleLogout}
-                className="m-4 bg-red-600 hover:bg-red-700 rounded-lg py-3 transition"
+            <aside
+                className={`
+                fixed lg:static
+                top-0 left-0
+                h-screen
+                w-64
+                bg-slate-900
+                text-white
+                flex flex-col
+                z-50
+                transform transition-transform duration-300
+                ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+                lg:translate-x-0
+            `}
             >
 
-                Logout
+                {/* Logo */}
 
-            </button>
+                <div className="h-20 flex items-center justify-center border-b border-slate-700">
 
-        </aside>
+                    <img
+                        src={logo}
+                        alt="EduHome Logo"
+                        className="w-36 object-contain"
+                    />
+
+                </div>
+
+                {/* Navigation */}
+
+                <nav className="mt-6 flex-1">
+
+                    {sidebarMenu.map((item) => {
+
+                        const Icon = item.icon;
+
+                        return (
+
+                            <NavLink
+                                key={item.path}
+                                to={item.path}
+                                onClick={() => setSidebarOpen(false)}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-3 px-6 py-3 transition
+                                    ${isActive
+                                        ? "bg-blue-600"
+                                        : "hover:bg-slate-800"}`
+                                }
+                            >
+
+                                <Icon size={18} />
+
+                                <span>{item.title}</span>
+
+                            </NavLink>
+
+                        );
+
+                    })}
+
+                </nav>
+
+                {/* Logout */}
+
+                <button
+                    onClick={handleLogout}
+                    className="m-4 bg-red-600 hover:bg-red-700 rounded-lg py-3"
+                >
+
+                    Logout
+
+                </button>
+
+            </aside>
+
+        </>
+
     );
+
 }
+
 
 export default Sidebar;

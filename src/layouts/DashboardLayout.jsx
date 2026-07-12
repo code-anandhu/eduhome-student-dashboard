@@ -1,25 +1,39 @@
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
 import Header from "../components/layout/Header";
 import Sidebar from "../components/layout/Sidebar";
 
 function DashboardLayout() {
-  return (
-    <div className="flex h-screen">
 
-      <Sidebar />
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+
+    <div className="flex h-screen bg-gray-100">
+
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       <div className="flex flex-col flex-1">
 
-        <Header />
+        <Header
+          setSidebarOpen={setSidebarOpen}
+        />
 
-        <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
-          <Outlet/>
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+
+          <Outlet />
+
         </main>
 
       </div>
 
     </div>
+
   );
+
 }
 
 export default DashboardLayout;
