@@ -1,27 +1,41 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function VerifyOtp() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const mobile = location.state?.mobile;
+    const confirmationResult = window.confirmationResult;
+
 
     const [otp, setOtp] = useState("");
     const [error, setError] = useState("");
 
-    const handleVerify = () => {
+    const handleVerify = async () => {
+        try {
+            setError("");
 
-        if (otp === "123456") {
+            if (!confirmationResult) {
+                setError("OTP session expired. Please login again.");
+                return;
+            }
 
+            // Verify OTP with Firebase
+            const result = await confirmationResult.confirm(otp);
+
+            console.log("Firebase User:", result.user);
+
+            // Save login status
             localStorage.setItem("isLoggedIn", "true");
 
             navigate("/dashboard");
 
-        } else {
-
+        } catch (err) {
+            console.error(err);
             setError("Invalid OTP");
-
         }
-
     };
 
     return (
@@ -56,6 +70,7 @@ function VerifyOtp() {
                         type="text"
                         placeholder="Enter OTP"
                         value={otp}
+                        maxLength={6}
                         onChange={(e) => setOtp(e.target.value)}
                         className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />

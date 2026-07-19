@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/Eduhome Logo.png";
+import { sendOtp } from "../../services/authService"
 
 function Login() {
 
@@ -9,20 +10,27 @@ function Login() {
   const [mobile, setMobile] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
+const handleLogin = async () => {
+  try {
+    setError("");
 
-    if (mobile === "9876543210") {
+    const confirmationResult = await sendOtp(mobile);
 
-      navigate("/verify-otp");
+    // Store globally (temporary)
+    window.confirmationResult = confirmationResult;
 
-    } else {
+    navigate("/verify-otp", {
+      state: {
+        mobile,
+      },
+    });
 
-      setError("Invalid Mobile Number");
+  } catch (error) {
+  console.log(error);
 
-    }
-
-  };
-
+  setError(error.code || error.message);
+}
+};
   return (
 
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
@@ -99,6 +107,8 @@ function Login() {
           Continue
 
         </button>
+
+        <div id="recaptcha-container"></div>
 
       </div>
 
