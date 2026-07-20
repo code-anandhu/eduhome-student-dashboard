@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { studentLogin } from "../../services/authService";
 
 function VerifyOtp() {
 
@@ -27,14 +28,38 @@ function VerifyOtp() {
 
             console.log("Firebase User:", result.user);
 
-            // Save login status
+            // Get Firebase ID Token
+            const idToken = await result.user.getIdToken();
+
+            console.log("Firebase ID Token:", idToken);
+
+            // Call Backend Login API
+            const response = await studentLogin(idToken);
+
+            console.log("Backend Response:", response);
+
+            // Save JWT Token
+            localStorage.setItem("token", response.result.token);
+
+            // Save Student Data
+            localStorage.setItem(
+                "student",
+                JSON.stringify(response.result.student)
+            );
+
+            // Login Status
             localStorage.setItem("isLoggedIn", "true");
 
+            // Navigate
             navigate("/dashboard");
 
         } catch (err) {
             console.error(err);
-            setError("Invalid OTP");
+            const message = 
+            err.response?.data?.message || 
+            err.message ||
+            "Something went wrong"
+            setError(message)
         }
     };
 
