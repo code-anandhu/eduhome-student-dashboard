@@ -13,7 +13,7 @@ function VideoCard({ video }) {
       <div className="relative h-48 sm:h-52 bg-slate-200">
 
         <img
-          src="https://placehold.co/600x400"
+          src={video.thumbnail || "https://placehold.co/600x400"}
           alt={video.title}
           className="w-full h-full object-cover"
         />
@@ -32,7 +32,7 @@ function VideoCard({ video }) {
 
         <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-3 py-1 rounded-full">
 
-          {video.duration}
+          {video.duration || "--:--"}
 
         </span>
 
@@ -50,37 +50,36 @@ function VideoCard({ video }) {
 
         <p className="text-sm text-gray-500 mt-2">
 
-          React Development
+          {video.course?.title}
 
         </p>
 
         {/* Progress */}
 
-        <div className="mt-5">
+    <div className="mt-5">
 
-          <div className="flex justify-between text-sm mb-2">
+  <div className="flex justify-between text-sm mb-2">
+    <span className="text-gray-500">
+      Progress
+    </span>
 
-            <span className="text-gray-500">
+    <span className="font-semibold text-blue-600">
+      {video.progress ?? 0}%
+    </span>
+  </div>
 
-              Progress
+  <div className="w-full h-2 bg-gray-200 rounded-full">
 
-            </span>
+    <div
+      className="h-2 bg-blue-600 rounded-full transition-all duration-500"
+      style={{
+        width: `${video.progress ?? 0}%`,
+      }}
+    ></div>
 
-            <span className="font-semibold text-blue-600">
+  </div>
 
-              40%
-
-            </span>
-
-          </div>
-
-          <div className="w-full h-2 bg-gray-200 rounded-full">
-
-            <div className="w-[40%] h-2 bg-blue-600 rounded-full transition-all duration-500"></div>
-
-          </div>
-
-        </div>
+</div>
 
       </div>
 

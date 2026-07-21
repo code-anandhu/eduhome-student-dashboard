@@ -18,7 +18,7 @@ function ChapterCard({ chapter }) {
 
       <p className="text-gray-500 text-sm md:text-base mt-3">
 
-        Videos : <span className="font-medium">{chapter.videos}</span>
+        Videos : <span className="font-medium">{chapter.videoCount}</span>
 
       </p>
 

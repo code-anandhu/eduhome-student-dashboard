@@ -1,14 +1,51 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import videos from "../../data/videos";
+import { getVideos } from "../../services/videoService";
 import VideoCard from "../../components/video/VideoCard";
 
 function Videos() {
 
   const { chapterId } = useParams();
 
-  const filteredVideos = videos.filter(
-    (video) => video.chapterId === Number(chapterId)
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  const fetchVideos = async () => {
+  try {
+    const response = await getVideos(chapterId);
+
+    console.log("Videos Response:", response);
+
+    setVideos(response.result.videos || []);
+  } catch (error) {
+    console.error(error);
+    setVideos([]);
+  } finally {
+    setLoading(false);
+  }x
+};
+
+useEffect(() => {
+  fetchVideos();
+}, [chapterId]);
+
+{/* <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
+  {videos.map((video) => (
+    <VideoCard
+      key={video.id}
+      video={video}
+    />
+  ))}
+</div> */}
+
+  if (loading) {
+  return (
+    <div className="text-center py-10">
+      Loading Videos...
+    </div>
   );
+}
 
   return (
 
@@ -36,7 +73,7 @@ function Videos() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
 
-        {filteredVideos.map((video) => (
+        {videos.map((video) => (
 
           <VideoCard
             key={video.id}
@@ -49,7 +86,7 @@ function Videos() {
 
       {/* Empty State */}
 
-      {filteredVideos.length === 0 && (
+      {videos.length === 0 && (
 
         <div className="bg-white rounded-2xl border p-10 text-center">
 

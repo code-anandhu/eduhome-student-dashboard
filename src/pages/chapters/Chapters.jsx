@@ -1,14 +1,45 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chapters from "../../data/chapters";
 import ChapterCard from "../../components/chapter/ChapterCard";
+import { getChapters } from "../../services/chapterService";
 
 function Chapters() {
 
   const { subjectId } = useParams();
 
-  const filteredChapters = chapters.filter(
+  const [chapters, setChapters] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchChapters = async () => {
+  try {
+    const response = await getChapters(subjectId);
+
+    console.log("Chapters Response:", response);
+
+    setChapters(response.result || []);
+  } catch (error) {
+    console.error("Chapters API Error:", error);
+    setChapters([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchChapters();
+}, [subjectId]);
+
+  const Chapters = chapters.filter(
     (chapter) => chapter.subjectId === Number(subjectId)
   );
+
+  if (loading) {
+  return (
+    <div className="text-center py-10">
+      Loading Chapters...
+    </div>
+  );
+}
 
   return (
 
@@ -36,7 +67,7 @@ function Chapters() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
 
-        {filteredChapters.map((chapter) => (
+        {Chapters.map((chapter) => (
 
           <ChapterCard
             key={chapter.id}
@@ -49,7 +80,7 @@ function Chapters() {
 
       {/* Empty State */}
 
-      {filteredChapters.length === 0 && (
+      {Chapters.length === 0 && (
 
         <div className="bg-white rounded-2xl border p-10 text-center">
 

@@ -2,70 +2,66 @@ import { Link } from "react-router-dom";
 
 function CourseCard({ course }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div className="bg-white rounded-2xl border shadow-sm hover:shadow-lg transition">
 
-      {/* Course Image */}
+      {/* Dummy Image */}
 
-      <img
-        src={course.image}
-        alt={course.title}
-        className="w-full h-44 sm:h-48 object-cover"
-      />
+  <img
+  src={
+    course.course.image ||
+    "https://placehold.co/600x300?text=Course"
+  }
+  alt={course.course.title}
+  className="w-full rounded-2xl"
+/>
 
-      {/* Content */}
+      <div className="p-5">
 
-      <div className="p-4 sm:p-5 md:p-6">
-
-        <h2 className="text-lg md:text-xl font-bold text-slate-800 line-clamp-2">
-
-          {course.title}
-
+        <h2 className="text-xl font-bold">
+          {course.course.title}
         </h2>
 
-        <p className="text-gray-500 text-sm md:text-base mt-2">
-
-          Instructor : {course.instructor}
-
+        <p className="text-gray-500 mt-2">
+          {course.course.description || "No Description"}
         </p>
 
-        <p className="text-gray-500 text-sm md:text-base mt-2">
+        <div className="mt-4 space-y-2 text-sm">
 
-          Subjects : {course.subjects}
+          <p>
+            <span className="font-semibold">Duration :</span>{" "}
+            {course.course.duration}
+          </p>
 
-        </p>
+          <p>
+            <span className="font-semibold">Batch :</span>{" "}
+            {course.batchName}
+          </p>
 
-        {/* Progress */}
+          <p>
+            <span className="font-semibold">Status :</span>{" "}
+            <span
+              className={`font-semibold ${
+                course.status === "active"
+                  ? "text-green-600"
+                  : "text-red-500"
+              }`}
+            >
+              {course.status}
+            </span>
+          </p>
 
-        <div className="mt-5">
-
-          <div className="flex justify-between text-sm mb-2">
-
-            <span>Progress</span>
-
-            <span>{course.progress}%</span>
-
-          </div>
-
-          <div className="w-full bg-gray-200 rounded-full h-2">
-
-            <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-              style={{
-                width: `${course.progress}%`,
-              }}
-            />
-
-          </div>
+          <p>
+            <span className="font-semibold">Admission :</span>{" "}
+            {new Date(course.admissionDate).toLocaleDateString()}
+          </p>
 
         </div>
 
         <Link
-          to={`/subjects/${course.id}`}
-          className="block mt-6 bg-blue-600 hover:bg-blue-700 text-white text-center py-2.5 md:py-3 rounded-xl transition"
+          to={`/subjects/${course.course.id}`}
+          className="block mt-6 bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-xl"
         >
-
           Open Course
-
         </Link>
 
       </div>

@@ -1,13 +1,40 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import videos from "../../data/videos";
+import { getVideoById } from "../../services/videoService";
+
 
 function VideoPlayer() {
 
+    const [video, setVideo] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const { videoId } = useParams();
 
-    const video = videos.find(
-        (item) => item.id === Number(videoId)
-    );
+    const fetchVideo = async () => {
+  try {
+    const response = await getVideoById(videoId);
+
+    console.log("Video Response:", response);
+
+    setVideo(response.result);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchVideo();
+}, [videoId]);
+
+if (loading) {
+  return (
+    <div className="text-center py-10">
+      Loading Video...
+    </div>
+  );
+}
 
     if (!video) {
         return (

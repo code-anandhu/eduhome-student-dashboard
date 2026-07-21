@@ -1,14 +1,48 @@
-import { useState } from "react";
-import { courses } from "../../data/courses";
+import { useState , useEffect } from "react";
 import CourseCard from "../../components/course/CourseCard";
+import { getCourses } from "../../services/catalogService";
 
 function Course() {
 
   const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredCourses = courses.filter((course) =>
-    course.title.toLowerCase().includes(search.toLowerCase())
+
+  const fetchCourses = async () => {
+  try {
+    const response = await getCourses();
+
+    console.log("Courses Response:", response);
+
+    setCourses(response.result);
+
+  } catch (error) {
+    console.error("Courses Error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchCourses();
+}, []);
+
+
+const filteredCourses = courses.filter((item) =>
+  item.course.title.toLowerCase().includes(search.toLowerCase())
+);
+
+
+
+  if (loading) {
+  return (
+    <div className="p-6 text-center">
+      Loading Courses...
+    </div>
   );
+}
+
 
   return (
 
