@@ -1,25 +1,69 @@
+import { useEffect, useState } from "react";
+import { getProfile } from "../../services/profileService";
+import EditProfileModal from "../../components/profile/EditProfileModal";
+
+
 function Profile() {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await getProfile();
+
+      console.log("Profile Response:", response);
+
+      setProfile(response.result);
+
+      console.log(response.result.photo);
+
+    } catch (error) {
+      console.error("Profile Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="p-6 text-center">
+        Loading Profile...
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="p-6 text-center">
+        No Profile Found
+      </div>
+    );
+  }
+
+  const photoUrl = profile.photo
+    ? JSON.parse(profile.photo)[0]
+    : null;
+
+  console.log("Photo URL:", photoUrl);
 
   return (
-
     <div className="space-y-6">
 
       {/* Header */}
 
       <div>
-
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
-
           My Profile
-
         </h1>
 
         <p className="text-gray-500 mt-2 text-sm md:text-base">
-
           View and manage your profile information.
-
         </p>
-
       </div>
 
       {/* Profile Card */}
@@ -30,11 +74,23 @@ function Profile() {
 
           {/* Profile Image */}
 
+          {/* Profile Image */}
+
           <div className="flex justify-center">
 
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl md:text-5xl font-bold shadow-lg">
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden bg-gray-200 shadow-lg">
 
-              A
+              {photoUrl ? (
+                <img
+                  src={photoUrl}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white text-4xl md:text-5xl font-bold">
+                  {profile.firstName?.charAt(0).toUpperCase()}
+                </div>
+              )}
 
             </div>
 
@@ -47,125 +103,132 @@ function Profile() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
                   Full Name
-
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  Anandhu
-
+                  {profile.firstName} {profile.lastName}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
                   Mobile
-
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  9876543210
-
+                  {profile.mobileNumber}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
                   Email
-
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  anandhu@gmail.com
-
+                  {profile.email || "N/A"}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
-                  Student ID
-
+                  Gender
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  EDU1001
-
+                  {profile.gender || "N/A"}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
-                  Course
-
+                  Qualification
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  MERN Stack
-
+                  {profile.qualification || "N/A"}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
-                  Batch
-
+                  College
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  2026
-
+                  {profile.collegeName || "N/A"}
                 </h3>
-
               </div>
 
               <div>
-
                 <p className="text-gray-500 text-sm">
-
-                  Joined Date
-
+                  City
                 </p>
 
                 <h3 className="font-semibold text-base md:text-lg">
-
-                  05 Jan 2026
-
+                  {profile.city || "N/A"}
                 </h3>
+              </div>
 
+              <div>
+                <p className="text-gray-500 text-sm">
+                  State
+                </p>
+
+                <h3 className="font-semibold text-base md:text-lg">
+                  {profile.state || "N/A"}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Pincode
+                </p>
+
+                <h3 className="font-semibold text-base md:text-lg">
+                  {profile.pincode || "N/A"}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Guardian Name
+                </p>
+
+                <h3 className="font-semibold text-base md:text-lg">
+                  {profile.guardianName || "N/A"}
+                </h3>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Guardian Phone
+                </p>
+
+                <h3 className="font-semibold text-base md:text-lg">
+                  {profile.guardianPhone || "N/A"}
+                </h3>
+              </div>
+
+              <div className="sm:col-span-2">
+                <p className="text-gray-500 text-sm">
+                  Address
+                </p>
+
+                <h3 className="font-semibold text-base md:text-lg">
+                  {profile.address || "N/A"}
+                </h3>
               </div>
 
             </div>
 
             <button
+              onClick={() => setOpenEdit(true)}
               className="w-full sm:w-auto mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition"
             >
-
               Edit Profile
-
             </button>
 
           </div>
@@ -173,11 +236,19 @@ function Profile() {
         </div>
 
       </div>
+     {openEdit && (
+  <EditProfileModal
+    profile={profile}
+    onClose={() => setOpenEdit(false)}
+    onSuccess={() => {
+      fetchProfile();
+      setOpenEdit(false);
+    }}
+  />
+)}
 
     </div>
-
   );
-
 }
 
 export default Profile;

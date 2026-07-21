@@ -5,8 +5,34 @@ import CourseCard from "../../components/dashboard/CourseCard";
 import RecentVideoCard from "../../components/dashboard/RecentVideoCard";
 import UpcomingClassCard from "../../components/dashboard/UpcomingClassCard";
 import AnnouncementCard from "../../components/dashboard/AnnouncementCard";
+import { useEffect, useState } from "react";
+import { getDashboard } from "../../services/dashboardService";
+
 
 function Dashboard() {
+
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDashboard = async () => {
+    try {
+      const response = await getDashboard();
+
+      console.log("Dashboard Response:", response);
+
+      console.log("Recent Videos:", response.result.recentVideos);
+
+      console.log("Dashboard Data:", response.result);
+
+      setDashboardData(response.result);
+    } catch (error) {
+      console.error("Dashboard Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const courses = [
     {
       id: 1,
@@ -76,6 +102,26 @@ function Dashboard() {
     },
   ];
 
+  useEffect(() => {
+  fetchDashboard();
+}, []);
+
+if (loading) {
+  return (
+    <div className="p-6 text-center">
+      Loading dashboard...
+    </div>
+  );
+}
+
+if (!dashboardData) {
+  return (
+    <div className="p-6 text-center">
+      No dashboard data available.
+    </div>
+  );
+}
+
 
   return (
     <div className="space-y-4 md:space-y-6">
@@ -84,7 +130,7 @@ function Dashboard() {
 
       <ContinueLearning />
 
-      <StatsCard />
+      <StatsCard  summary={dashboardData.summary}/>
 
       {/* <CourseCard /> */}
 
@@ -136,7 +182,7 @@ function Dashboard() {
 
       </section>
 
-    
+
 
     </div>
   );

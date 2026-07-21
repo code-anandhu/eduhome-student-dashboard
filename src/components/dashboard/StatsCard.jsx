@@ -5,38 +5,38 @@ import {
   FaClock,
 } from "react-icons/fa";
 
-function StatsCard() {
+function StatsCard({summary}) {
 
-  const stats = [
-    {
-      title: "Total Courses",
-      value: "8",
-      icon: FaBookOpen,
-      color: "text-blue-600",
-      bg: "bg-blue-100",
-    },
-    {
-      title: "Subjects",
-      value: "42",
-      icon: FaLayerGroup,
-      color: "text-green-600",
-      bg: "bg-green-100",
-    },
-    {
-      title: "Videos Completed",
-      value: "96",
-      icon: FaVideo,
-      color: "text-purple-600",
-      bg: "bg-purple-100",
-    },
-    {
-      title: "Learning Hours",
-      value: "74 hrs",
-      icon: FaClock,
-      color: "text-orange-600",
-      bg: "bg-orange-100",
-    },
-  ];
+ const stats = [
+  {
+    title: "Enrolled Courses",
+    value: summary?.enrolledCourses ?? 0,
+    icon: FaBookOpen,
+    color: "text-blue-600",
+    bg: "bg-blue-100",
+  },
+  {
+    title: "Active Chapters",
+    value: summary?.activeChapters ?? 0,
+    icon: FaLayerGroup,
+    color: "text-green-600",
+    bg: "bg-green-100",
+  },
+  {
+    title: "Videos In Progress",
+    value: summary?.videosInProgress ?? 0,
+    icon: FaClock,
+    color: "text-orange-600",
+    bg: "bg-orange-100",
+  },
+  {
+    title: "Videos Completed",
+    value: summary?.videosCompleted ?? 0,
+    icon: FaVideo,
+    color: "text-purple-600",
+    bg: "bg-purple-100",
+  },
+];
 
   return (
 
