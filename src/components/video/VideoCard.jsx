@@ -56,30 +56,30 @@ function VideoCard({ video }) {
 
         {/* Progress */}
 
-    <div className="mt-5">
+        <div className="mt-5">
 
-  <div className="flex justify-between text-sm mb-2">
-    <span className="text-gray-500">
-      Progress
-    </span>
+          <div className="flex justify-between text-sm mb-2">
+            <span className="text-gray-500">
+              Progress
+            </span>
 
-    <span className="font-semibold text-blue-600">
-      {video.progress ?? 0}%
-    </span>
-  </div>
+            <span className="font-semibold text-blue-600">
+              {video.progress?.progressPercent ?? 0}%
+            </span>
+          </div>
 
-  <div className="w-full h-2 bg-gray-200 rounded-full">
+          <div className="w-full h-2 bg-gray-200 rounded-full">
 
-    <div
-      className="h-2 bg-blue-600 rounded-full transition-all duration-500"
-      style={{
-        width: `${video.progress ?? 0}%`,
-      }}
-    ></div>
+            <div
+              className="h-2 bg-blue-600 rounded-full transition-all duration-500"
+              style={{
+                width: `${video.progress?.progressPercent ?? 0}%`,
+              }}
+            ></div>
 
-  </div>
+          </div>
 
-</div>
+        </div>
 
       </div>
 

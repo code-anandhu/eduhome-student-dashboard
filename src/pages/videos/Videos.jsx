@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getVideos } from "../../services/videoService";
+import { getVideos , getVideoById , saveVideoProgress , getVideoProgress } from "../../services/videoService";
 import VideoCard from "../../components/video/VideoCard";
 
 function Videos() {
@@ -23,7 +23,7 @@ function Videos() {
     setVideos([]);
   } finally {
     setLoading(false);
-  }x
+  }
 };
 
 useEffect(() => {

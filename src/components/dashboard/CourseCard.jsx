@@ -1,58 +1,52 @@
 function CourseCard({
-    title,
-    instructor,
-    progress,
+  title,
+  description,
+  duration,
+  status,
+  admissionDate,
 }) {
+  return (
+    <div className="bg-white rounded-2xl border shadow-sm p-4 sm:p-5 md:p-6 hover:shadow-lg transition-all duration-300">
 
-    return (
+      <h2 className="text-lg md:text-2xl font-bold text-slate-800">
+        {title}
+      </h2>
 
-        <div className="bg-white rounded-2xl border shadow-sm p-4 sm:p-5 md:p-6 hover:shadow-lg transition-all duration-300">
+      <p className="text-gray-500 mt-2 text-sm">
+        {description || "No description available"}
+      </p>
 
-            <h2 className="text-lg md:text-2xl font-bold text-slate-800">
+      <div className="mt-4 space-y-2 text-sm text-gray-600">
 
-                {title}
+        <p>
+          <span className="font-semibold">Duration:</span>{" "}
+          {duration ? `${duration} Months` : "--"}
+        </p>
 
-            </h2>
+        <p>
+          <span className="font-semibold">Status:</span>{" "}
+          <span className="text-green-600 capitalize">
+            {status}
+          </span>
+        </p>
 
-            <p className="text-gray-500 mt-2 text-sm md:text-base">
+        <p>
+          <span className="font-semibold">Admission:</span>{" "}
+          {admissionDate
+            ? new Date(admissionDate).toLocaleDateString()
+            : "--"}
+        </p>
 
-                {instructor}
+      </div>
 
-            </p>
+      <button
+        className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition"
+      >
+        Continue Learning
+      </button>
 
-            <div className="mt-5 md:mt-6">
-
-                <div className="flex justify-between mb-2 text-sm md:text-base">
-
-                    <span>Progress</span>
-
-                    <span>{progress}%</span>
-
-                </div>
-
-                <div className="w-full bg-gray-200 rounded-full h-3">
-
-                    <div
-                        className="bg-blue-600 h-3 rounded-full transition-all duration-500"
-                        style={{ width: `${progress}%` }}
-                    />
-
-                </div>
-
-            </div>
-
-            <button
-                className="w-full mt-5 md:mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2.5 md:py-3 rounded-lg transition"
-            >
-
-                Continue
-
-            </button>
-
-        </div>
-
-    );
-
+    </div>
+  );
 }
 
 export default CourseCard;

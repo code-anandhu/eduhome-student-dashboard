@@ -12,5 +12,19 @@ export const getVideoById = async (videoId) => {
   return response.data;
 };
 
+// video progress 
+
+export const saveVideoProgress = async (data) => {
+  const response = await api.post("/student/video-progress", data);
+  return response.data;
+};
+
+// video-progress id
+
+export const getVideoProgress = async (videoId) => {
+  const response = await api.get(`/student/video-progress/${videoId}`);
+  return response.data;
+};
+
 
 
