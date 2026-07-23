@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SubjectCard from "../../components/subject/SubjectCard";
 import { getSubjects } from "../../services/subjectService";
+import PageLoader from "../../components/common/PageLoader";
+import BackButton from "../../components/common/BackButton";
+
+
 
 function Subject() {
 
@@ -30,13 +34,11 @@ function Subject() {
     fetchSubjects();
   }, [courseId]);
 
-  if (loading) {
-    return (
-      <div className="text-center py-10">
-        Loading Subjects...
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <PageLoader text="Loading Subjects..."/>
+  );
+}
 
   return (
     <div className="space-y-6">
@@ -44,6 +46,7 @@ function Subject() {
       {/* Header */}
 
       <div>
+        <BackButton/>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Subjects
         </h1>

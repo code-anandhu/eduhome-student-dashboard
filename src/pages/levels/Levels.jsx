@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import levels from "../../data/levels";
 import LevelCard from "../../components/level/LevelCard";
+import BackButton from "../../components/common/BackButton";
 
 function Levels() {
 
@@ -12,7 +13,7 @@ function Levels() {
 
   return (
     <div>
-
+    <BackButton/>
       <h1 className="text-3xl font-bold mb-6">
         Levels
       </h1>

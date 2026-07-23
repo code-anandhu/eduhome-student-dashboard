@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/profileService";
 import EditProfileModal from "../../components/profile/EditProfileModal";
+import PageLoader from "../../components/common/PageLoader";
 
 
 function Profile() {
@@ -31,9 +32,7 @@ function Profile() {
 
   if (loading) {
     return (
-      <div className="p-6 text-center">
-        Loading Profile...
-      </div>
+     <PageLoader text="Loading Profile..."/>
     );
   }
 

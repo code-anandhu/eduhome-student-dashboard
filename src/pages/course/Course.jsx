@@ -1,6 +1,10 @@
 import { useState , useEffect } from "react";
 import CourseCard from "../../components/course/CourseCard";
 import { getCourses } from "../../services/catalogService";
+import PageLoader from "../../components/common/PageLoader";
+import BackButton from "../../components/common/BackButton";
+
+
 
 function Course() {
 
@@ -35,11 +39,9 @@ const filteredCourses = courses.filter((item) =>
 
 
 
-  if (loading) {
+if (loading) {
   return (
-    <div className="p-6 text-center">
-      Loading Courses...
-    </div>
+    <PageLoader text="Loading Courses..."/>
   );
 }
 
@@ -51,7 +53,7 @@ const filteredCourses = courses.filter((item) =>
       {/* Page Title */}
 
       <div>
-
+       <BackButton/>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
 
           My Courses

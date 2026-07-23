@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ChapterCard from "../../components/chapter/ChapterCard";
 import { getChapters } from "../../services/chapterService";
+import PageLoader from "../../components/common/PageLoader";
+import BackButton from "../../components/common/BackButton";
+
+
 
 function Chapters() {
 
@@ -33,11 +37,9 @@ useEffect(() => {
     (chapter) => chapter.subjectId === Number(subjectId)
   );
 
-  if (loading) {
+if (loading) {
   return (
-    <div className="text-center py-10">
-      Loading Chapters...
-    </div>
+<PageLoader text="Loading Chapters..."/>
   );
 }
 
@@ -48,7 +50,7 @@ useEffect(() => {
       {/* Page Header */}
 
       <div>
-
+      <BackButton/>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
 
           Chapters

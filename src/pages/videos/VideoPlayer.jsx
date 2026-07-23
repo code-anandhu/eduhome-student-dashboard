@@ -5,6 +5,10 @@ import {
   saveVideoProgress,
   getVideoProgress
 } from "../../services/videoService";
+import PageLoader from "../../components/common/PageLoader";
+import BackButton from "../../components/common/BackButton";
+
+
 
 function VideoPlayer() {
   const { videoId } = useParams();
@@ -144,9 +148,7 @@ function VideoPlayer() {
 
   if (loading) {
     return (
-      <div className="text-center py-10">
-        Loading Video...
-      </div>
+    <PageLoader text="Loading video..."/>
     );
   }
 
@@ -178,6 +180,7 @@ function VideoPlayer() {
       {/* Header */}
 
       <div>
+       <BackButton/>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Video Player
         </h1>

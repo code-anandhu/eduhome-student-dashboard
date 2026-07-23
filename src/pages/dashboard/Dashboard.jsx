@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { getDashboard } from "../../services/dashboardService";
 import { getCourses } from "../../services/catalogService";
 import { getRecentVideos } from "../../services/dashboardService";
+import PageLoader from "../../components/common/PageLoader";
+
+
 
 
 function Dashboard() {
@@ -99,13 +102,11 @@ function Dashboard() {
     fetchRecentVideos();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="p-6 text-center">
-        Loading dashboard...
-      </div>
-    );
-  }
+ if (loading) {
+  return (
+    <PageLoader text="Loading Subjects...."/>
+  );
+}
 
   if (!dashboardData) {
     return (

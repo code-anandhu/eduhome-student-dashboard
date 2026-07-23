@@ -6,11 +6,22 @@ import {
 
 import api from "./api"
 
+let recaptchaVerifier = null;
+
 export const sendOtp = async (phoneNumber) => {
   try {
-    const appVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-      size: "invisible",
-    });
+
+    if (!recaptchaVerifier) {
+      recaptchaVerifier = new RecaptchaVerifier(
+        auth,
+        "recaptcha-container",
+        {
+          size: "invisible",
+        }
+      );
+
+      await recaptchaVerifier.render();
+    }
 
     const formattedPhone = `+91${phoneNumber}`;
 
@@ -19,17 +30,18 @@ export const sendOtp = async (phoneNumber) => {
     const confirmationResult = await signInWithPhoneNumber(
       auth,
       formattedPhone,
-      appVerifier
+      recaptchaVerifier
     );
 
     console.log("OTP SENT SUCCESS");
-    console.log(confirmationResult);
 
     return confirmationResult;
 
   } catch (error) {
+
     console.error("Firebase Error Code:", error.code);
     console.error("Firebase Error:", error.message);
+
     throw error;
   }
 };

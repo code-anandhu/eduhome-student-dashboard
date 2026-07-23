@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getVideos , getVideoById , saveVideoProgress , getVideoProgress } from "../../services/videoService";
 import VideoCard from "../../components/video/VideoCard";
+import PageLoader from "../../components/common/PageLoader";
+import BackButton from "../../components/common/BackButton";
+
+
+
 
 function Videos() {
 
@@ -38,22 +43,21 @@ useEffect(() => {
     />
   ))}
 </div> */}
-
-  if (loading) {
+if (loading) {
   return (
-    <div className="text-center py-10">
-      Loading Videos...
-    </div>
+ <PageLoader text="Loading Videos..."/>
   );
 }
 
   return (
 
     <div className="space-y-6">
+      
 
       {/* Page Header */}
 
       <div>
+        <BackButton/>
 
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
 
