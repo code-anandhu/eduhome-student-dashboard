@@ -121,7 +121,7 @@ function Dashboard() {
 
       <WelcomeCard />
 
-      <ContinueLearning />
+      <ContinueLearning video={recentVideos[0]}/>
 
       <StatsCard summary={dashboardData.summary} />
 
@@ -134,12 +134,15 @@ function Dashboard() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          
 
           {courses.map((item) => (
+            
 
             <CourseCard
               key={item.course.id}
               title={item.course.title}
+                courseId={item.course.id}
               description={item.course.description}
               duration={item.course.duration}
               status={item.status}

@@ -1,17 +1,40 @@
 import { NavLink } from "react-router-dom";
 import { sidebarMenu } from "../../utils/sidebarMenu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logos/Eduhome Logo.png";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
 
         localStorage.removeItem("isLoggedIn");
         navigate("/login");
 
+    };
+
+    const isItemActive = (path) => {
+        if (path === "/dashboard")
+            return location.pathname.startsWith("/dashboard");
+
+        if (path === "/courses")
+            return location.pathname.startsWith("/courses");
+
+        if (path.startsWith("/subjects"))
+            return location.pathname.startsWith("/subjects");
+
+        if (path.startsWith("/chapters"))
+            return location.pathname.startsWith("/chapters");
+
+        if (path.startsWith("/videos"))
+            return location.pathname.startsWith("/videos");
+
+        if (path === "/profile")
+            return location.pathname.startsWith("/profile");
+
+        return false;
     };
 
     return (
@@ -69,12 +92,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 key={item.path}
                                 to={item.path}
                                 onClick={() => setSidebarOpen(false)}
-                                className={({ isActive }) =>
-                                    `flex items-center gap-3 px-6 py-3 transition
-                                    ${isActive
+                                className={`
+                                   flex items-center gap-3 px-6 py-3 transition
+                                    ${isItemActive(item.path)
                                         ? "bg-blue-600"
-                                        : "hover:bg-slate-800"}`
-                                }
+                                        : "hover:bg-slate-800"
+                                    }
+                                 `}
                             >
 
                                 <Icon size={18} />

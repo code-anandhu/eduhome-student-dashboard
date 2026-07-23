@@ -19,17 +19,17 @@ export const sidebarMenu = [
   },
   {
     title: "Subjects",
-    path: "/subjects",
+    path: "/subjects/:courseId",
     icon: MdLibraryBooks,
   },
   {
     title: "Chapters",
-    path: "/chapters",
+    path: "/chapters/:subjectId",
     icon: MdLibraryBooks,
   },
   {
     title: "Videos",
-    path: "/videos",
+    path: "/videos/:chapterId",
     icon: MdVideoLibrary,
   },
   {

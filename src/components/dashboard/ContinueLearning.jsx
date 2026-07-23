@@ -1,4 +1,15 @@
-function ContinueLearning() {
+import { useNavigate } from "react-router-dom";
+
+function ContinueLearning({video}) {
+
+   
+
+       if (!video) {
+        return null;
+    }
+     const navigate = useNavigate();
+
+
     return (
 
         <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-6 md:p-8">
@@ -12,12 +23,12 @@ function ContinueLearning() {
                     </h2>
 
                     <p className="text-gray-500 mt-2 text-sm md:text-base">
-                        React Fundamentals - Lesson 8
+                        {video.title}
                     </p>
 
                 </div>
 
-                <button
+                <button onClick={() => navigate(`/videoplayers/${video.id}`)}
                     className="w-full md:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
                 >
                     Continue
@@ -29,9 +40,9 @@ function ContinueLearning() {
 
                 <div className="flex justify-between mb-2 text-sm md:text-base">
 
-                    <span>Progress</span>
+                    <span>{video.progress?.progressPercent ?? 0}</span>
 
-                    <span>65%</span>
+                    <span>{video.progress?.progressPercent ?? 0}%</span>
 
                 </div>
 

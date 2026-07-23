@@ -9,6 +9,7 @@ function VerifyOtp() {
 
     const mobile = location.state?.mobile;
     const confirmationResult = window.confirmationResult;
+    
 
 
     const [otp, setOtp] = useState("");
@@ -40,6 +41,7 @@ function VerifyOtp() {
 
             // Save JWT Token
             localStorage.setItem("token", response.result.token);
+
 
             // Save Student Data
             localStorage.setItem(

@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 import { FaPlayCircle } from "react-icons/fa";
 
 function VideoCard({ video }) {
+
+    const thumbnail =
+    Array.isArray(video.thumbnail)
+      ? video.thumbnail
+      : JSON.parse(video.thumbnail || "[]");
+
+  
   return (
     <Link
       to={`/videoplayers/${video.id}`}
@@ -13,9 +20,10 @@ function VideoCard({ video }) {
       <div className="relative h-48 sm:h-52 bg-slate-200">
 
         <img
-          src={video.thumbnail || "https://placehold.co/600x400"}
+          src={thumbnail[0] || "/placeholder.png"}
           alt={video.title}
           className="w-full h-full object-cover"
+   
         />
 
         {/* Play Button */}

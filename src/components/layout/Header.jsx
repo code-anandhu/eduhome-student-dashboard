@@ -13,6 +13,28 @@ function Header({setSidebarOpen}) {
         year: "numeric",
     });
 
+    const student = JSON.parse(localStorage.getItem("student"));
+
+const name = student
+  ? `${student.firstName} ${student.lastName}`
+  : "Student";
+
+const firstLetter = student?.firstName
+  ? student.firstName.charAt(0).toUpperCase()
+  : "S";
+
+const hour = today.getHours();
+
+let greeting = "";
+
+if (hour < 12) {
+  greeting = "Good Morning";
+} else if (hour < 17) {
+  greeting = "Good Afternoon";
+} else {
+  greeting = "Good Evening";
+}
+
   return (
 
 <header className="bg-white border-b px-4 md:px-8 h-20 flex items-center justify-between">
@@ -40,7 +62,7 @@ function Header({setSidebarOpen}) {
 
             <h2 className="text-lg md:text-2xl font-bold text-slate-800">
 
-                Good Evening, Anandhu 👋
+                {greeting} 
 
             </h2>
 
@@ -76,7 +98,7 @@ function Header({setSidebarOpen}) {
 
             <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
 
-                A
+                {firstLetter}
 
             </div>
 
@@ -84,7 +106,7 @@ function Header({setSidebarOpen}) {
 
                 <h3 className="font-semibold">
 
-                    Anandhu
+                    {name}
 
                 </h3>
 

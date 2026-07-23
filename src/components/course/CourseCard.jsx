@@ -4,7 +4,7 @@ function CourseCard({ course }) {
   return (
     <div className="bg-white rounded-2xl border shadow-sm hover:shadow-lg transition">
 
-      {/* Dummy Image */}
+      
 
   <img
   src={

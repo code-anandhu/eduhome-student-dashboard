@@ -6,6 +6,7 @@ import { getSubjects } from "../../services/subjectService";
 function Subject() {
 
   const { courseId } = useParams();
+  
 
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
