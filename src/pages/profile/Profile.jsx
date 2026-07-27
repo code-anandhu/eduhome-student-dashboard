@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/profileService";
-import EditProfileModal from "../../components/profile/EditProfileModal";
 import PageLoader from "../../components/common/PageLoader";
 
 
 function Profile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [openEdit, setOpenEdit] = useState(false);
 
   const fetchProfile = async () => {
     try {
@@ -223,28 +221,12 @@ function Profile() {
 
             </div>
 
-            <button
-              onClick={() => setOpenEdit(true)}
-              className="w-full sm:w-auto mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition"
-            >
-              Edit Profile
-            </button>
-
           </div>
 
         </div>
 
       </div>
-     {openEdit && (
-  <EditProfileModal
-    profile={profile}
-    onClose={() => setOpenEdit(false)}
-    onSuccess={() => {
-      fetchProfile();
-      setOpenEdit(false);
-    }}
-  />
-)}
+
 
     </div>
   );

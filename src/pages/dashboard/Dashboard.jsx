@@ -66,35 +66,8 @@ function Dashboard() {
     }
   };
 
-  // const upcomingClasses = [
-  //   {
-  //     id: 1,
-  //     subject: "React Live Session",
-  //     date: "08 July 2026",
-  //     time: "10:00 AM",
-  //   },
-  //   {
-  //     id: 2,
-  //     subject: "Node.js Workshop",
-  //     date: "09 July 2026",
-  //     time: "02:00 PM",
-  //   },
-  // ];
 
-  // const announcements = [
-  //   {
-  //     id: 1,
-  //     title: "Holiday Notice",
-  //     description: "Classes will remain closed on Friday due to maintenance.",
-  //     date: "07 Jul",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "New React Course",
-  //     description: "Advanced React course has been added to your dashboard.",
-  //     date: "06 Jul",
-  //   },
-  // ];
+
 
   useEffect(() => {
     fetchDashboard();
@@ -104,7 +77,7 @@ function Dashboard() {
 
  if (loading) {
   return (
-    <PageLoader text="Loading Subjects...."/>
+    <PageLoader text="Loading Dashboard..."/>
   );
 }
 
