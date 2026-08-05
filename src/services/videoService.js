@@ -1,7 +1,9 @@
 import api from "./api";
 
-export const getVideos = async (chapterId) => {
-  const response = await api.get(`/student/videos/chapter/${chapterId}`);
+export const getVideos = async (chapterId, levelId) => {
+  const response = await api.get(
+    `/student/videos/chapter/${chapterId}/${levelId}`
+  );
   return response.data;
 };
 

@@ -12,6 +12,7 @@ import VideoPlayer from '../pages/videos/VideoPlayer'
 import AuthLayout from '../layouts/AuthLayout'
 import DashboardLayout from '../layouts/DashboardLayout'
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import Levels from '../pages/levels/Levels'
 
 
 function AppRoutes() {
@@ -28,11 +29,11 @@ function AppRoutes() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/subjects/:courseId' element={<Subject />} />
         <Route path='/chapters/:subjectId' element={<Chapters />} />
-        <Route path='/videos/:chapterId' element={<Videos />} />
+        <Route path='/videos/:chapterId/:levelId' element={<Videos />} />
         <Route path='/videoplayers/:videoId' element={<VideoPlayer />} />
         <Route path='/courses' element={<Course />} />
         <Route path='/profile' element={<Profile />} />
-         {/* <Route path='/levels/:chapterId' element={<Levels />} /> */}
+         <Route path='/levels/:chapterId' element={<Levels />} />
       </Route>
 
 

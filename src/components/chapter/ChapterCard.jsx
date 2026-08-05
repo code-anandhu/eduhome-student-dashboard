@@ -19,10 +19,10 @@ function ChapterCard({ chapter }) {
       </p>
 
       <Link
-        to={`/videos/${chapter.id}`}
+        to={`/levels/${chapter.id}`}
         className="block mt-6 bg-blue-600 hover:bg-blue-700 text-white text-center py-2.5 md:py-3 rounded-xl transition"
       >
-        Loading Videos...
+        Open Levels
       </Link>
 
     </div>
