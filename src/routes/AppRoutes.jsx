@@ -19,7 +19,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        <Route path='/' element={<Login />} />
+        {/* <Route path='/' element={<Login />} /> */}
         <Route path='/login' element={<Login />} />
         <Route path='/verify-otp' element={<VerifyOtp />} />
       </Route>
