@@ -1,16 +1,19 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyArl1oKVOJr5RG3a2UaniO9Yb4Z5ptXbBQ",
-  authDomain: "eduhome-4b7b4.firebaseapp.com",
-  projectId: "eduhome-4b7b4",
-  storageBucket: "eduhome-4b7b4.firebasestorage.app",
-  messagingSenderId: "646386057726",
-  appId: "1:646386057726:web:2d147cd7c0464c1ab9c0af",
+  apiKey: "AIzaSyDYn3BMT4_7FJJ5NlckJDn7S_bV-IV1Z1E",
+  authDomain: "eduhome-cec54.firebaseapp.com",
+  projectId: "eduhome-cec54",
+  storageBucket: "eduhome-cec54.firebasestorage.app",
+  messagingSenderId: "627428198711",
+  appId: "1:627428198711:web:5c8aa7a3d2bdebb38eb2b2",
+  measurementId: "G-SCBM6PCWPB"
 };
 
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
 
