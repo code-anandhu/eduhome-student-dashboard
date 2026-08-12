@@ -11,7 +11,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     const handleLogout = () => {
 
         localStorage.removeItem("isLoggedIn");
-        navigate("/");
+        window.location.href = "/login/"
 
     };
 
