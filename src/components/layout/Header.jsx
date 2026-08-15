@@ -1,6 +1,4 @@
-import { FaBell, FaBars } from "react-icons/fa";
-import { MdOutlineLightMode } from "react-icons/md";
-import logo from "../../assets/logos/Eduhome Logo.png";
+import {  FaBars } from "react-icons/fa";
 
 function Header({setSidebarOpen}) {
 
@@ -52,11 +50,6 @@ if (hour < 12) {
             <FaBars size={22} />
         </button>
 
-        <img
-            src={logo}
-            alt="EduHome Logo"
-            className="w-20 md:w-24 object-contain"
-        />
 
         <div className="hidden sm:block">
 
@@ -80,19 +73,6 @@ if (hour < 12) {
 
     <div className="flex items-center gap-2 md:gap-4">
 
-        <button className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-
-            <MdOutlineLightMode size={18} />
-
-        </button>
-
-        <button className="relative w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-
-            <FaBell size={16} />
-
-            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
-
-        </button>
 
         <div className="flex items-center gap-2">
 

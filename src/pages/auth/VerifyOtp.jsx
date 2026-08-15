@@ -9,7 +9,7 @@ function VerifyOtp() {
 
     const mobile = location.state?.mobile;
     const confirmationResult = window.confirmationResult;
-    
+
 
 
     const [otp, setOtp] = useState("");
@@ -57,10 +57,10 @@ function VerifyOtp() {
 
         } catch (err) {
             console.error(err);
-            const message = 
-            err.response?.data?.message || 
-            err.message ||
-            "Something went wrong"
+            const message =
+                err.response?.data?.message ||
+                err.message ||
+                "Something went wrong"
             setError(message)
         }
     };
@@ -101,6 +101,9 @@ function VerifyOtp() {
                         onChange={(e) => setOtp(e.target.value)}
                         className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    <p className="text-gray-500 text-sm mt-3">
+                        OTP may take a few moments to arrive. Please wait.
+                    </p>
 
                     {error && (
 

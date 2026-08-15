@@ -6,7 +6,7 @@ function ProtectedRoute({ children }) {
 
     return isLoggedIn
         ? children
-        : <Navigate to="/login" />;
+        : <Navigate to="/" replace />;
 
 }
 

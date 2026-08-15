@@ -10,27 +10,31 @@ function Login() {
   const [mobile, setMobile] = useState("");
   const [error, setError] = useState("");
 
-const handleLogin = async () => {
-  try {
-    setError("");
+  const handleLogin = async () => {
+    try {
+      setError("");
 
-    const confirmationResult = await sendOtp(mobile);
+      const confirmationResult = await sendOtp(mobile);
 
-    // Store globally (temporary)
-    window.confirmationResult = confirmationResult;
+      // Store globally (temporary)
+      window.confirmationResult = confirmationResult;
 
-    navigate("/verify-otp", {
-      state: {
-        mobile,
-      },
-    });
+      navigate("/verify-otp", {
+        state: {
+          mobile,
+        },
+      });
 
-  } catch (error) {
-  console.log(error);
+    } catch (error) {
+      console.log(error);
 
-  setError(error.code || error.message);
-}
-};
+      if (error.code === "auth/invalid-phone-number") {
+        setError("Invalid number. Please check the number.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
+  };
   return (
 
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
