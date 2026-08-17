@@ -12,6 +12,7 @@ const firebaseConfig = {
   measurementId: "G-SCBM6PCWPB"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 

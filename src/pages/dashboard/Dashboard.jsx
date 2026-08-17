@@ -145,6 +145,7 @@ function Dashboard() {
             recentVideos.map((video) => (
               <RecentVideoCard
                 key={video.id}
+                id={video.id}
                 title={video.title}
                 duration={video.duration}
                 thumbnail={video.thumbnail}

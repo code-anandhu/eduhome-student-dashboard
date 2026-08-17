@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+
+
 function RecentVideoCard({
   title,
   duration,
@@ -6,6 +9,7 @@ function RecentVideoCard({
   course,
   chapter,
 }) {
+  const navigate = useNavigate();
 
   const thumbnailUrl = (() => {
     if (!thumbnail) return "https://placehold.co/600x400";
@@ -16,6 +20,10 @@ function RecentVideoCard({
       return thumbnail;
     }
   })();
+
+  const handleWatchNow = () => {
+    navigate(`/videoplayers/${id}`);
+  };
 
   return (
 
@@ -73,6 +81,7 @@ function RecentVideoCard({
       </p>
 
       <button
+        onClick={handleWatchNow}
         className="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg transition"
       >
         Watch Now

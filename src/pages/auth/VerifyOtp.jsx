@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { studentLogin } from "../../services/authService";
+import { studentLogin, sendOtp } from "../../services/authService";
 
 function VerifyOtp() {
 
@@ -14,6 +14,47 @@ function VerifyOtp() {
 
     const [otp, setOtp] = useState("");
     const [error, setError] = useState("");
+
+    const [resending, setResending] = useState(false);
+    const [resendCooldown, setResendCooldown] = useState(0);
+
+
+    const handleResendOtp = async () => {
+        if (resendCooldown > 0 || resending) return;
+
+        try {
+            setError("");
+            setResending(true);
+
+            const newConfirmationResult = await sendOtp(mobile);
+
+            window.confirmationResult = newConfirmationResult;
+
+            setResendCooldown(30);
+
+            const timer = setInterval(() => {
+                setResendCooldown((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        return 0;
+                    }
+
+                    return prev - 1;
+                });
+            }, 1000);
+
+        } catch (err) {
+            console.error(err);
+
+            setError(
+                err.response?.data?.message ||
+                err.message ||
+                "Unable to resend OTP. Please try again."
+            );
+        } finally {
+            setResending(false);
+        }
+    };
 
     const handleVerify = async () => {
         try {
@@ -139,11 +180,19 @@ function VerifyOtp() {
                     </p>
 
                     <button
-                        className="mt-2 text-blue-600 font-medium hover:text-blue-700 transition"
+                        onClick={handleResendOtp}
+                        disabled={resending || resendCooldown > 0}
+                        className={`mt-2 font-medium transition ${resendCooldown > 0 || resending
+                                ? "text-gray-400 cursor-not-allowed"
+                                : "text-blue-600 hover:text-blue-700"
+                            }`}
                     >
-
-                        Resend OTP
-
+                        {resending
+                            ? "Sending OTP..."
+                            : resendCooldown > 0
+                                ? `Resend OTP in ${resendCooldown}s`
+                                : "Resend OTP"
+                        }
                     </button>
 
                 </div>
