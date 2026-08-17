@@ -81,7 +81,7 @@ function RecentVideoCard({
       </p>
 
       <button
-        onClick={handleWatchNow}
+        onClick={()=> navigate(`/videoplayers/${id}`)}
         className="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg transition"
       >
         Watch Now
