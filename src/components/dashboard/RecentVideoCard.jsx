@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function RecentVideoCard({
+  id ,
   title,
   duration,
   thumbnail,
@@ -21,9 +22,6 @@ function RecentVideoCard({
     }
   })();
 
-  const handleWatchNow = () => {
-    navigate(`/videoplayers/${id}`);
-  };
 
   return (
 
