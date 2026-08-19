@@ -63,7 +63,7 @@ function Videos() {
 
       {/* Search Videos */}
 
-      <div className="bg-white rounded-2xl border p-4">
+      
 
         <input
           type="text"
@@ -73,7 +73,7 @@ function Videos() {
           className="w-full max-w-sm  border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-      </div>
+      
 
       {filteredVideos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">

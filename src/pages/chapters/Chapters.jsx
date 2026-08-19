@@ -70,7 +70,7 @@ if (loading) {
 
       {/* ṣearch chapters  */}
 
-      <div className="bg-white rounded-2xl border p-4">
+      
 
         <input type="text"
         placeholder="Search chapters..."
@@ -78,7 +78,7 @@ if (loading) {
         onChange={(e)=>setSearch(e.target.value)}
         className="w-full max-w-sm  border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-      </div>
+      
 
       {/* Chapters Grid */}
 
