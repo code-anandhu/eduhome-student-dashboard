@@ -17,6 +17,7 @@ function Videos() {
 
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   const fetchVideos = async () => {
     try {
@@ -37,6 +38,11 @@ function Videos() {
     fetchVideos();
   }, [chapterId, levelId]);
 
+  const filteredVideos = videos.filter((video) =>
+    video.title?.toLowerCase().includes(search.toLowerCase())
+  );
+
+
   if (loading) {
     return <PageLoader text="Loading Videos..." />;
   }
@@ -55,9 +61,23 @@ function Videos() {
         </p>
       </div>
 
-      {videos.length > 0 ? (
+      {/* Search Videos */}
+
+      <div className="bg-white rounded-2xl border p-4">
+
+        <input
+          type="text"
+          placeholder="Search videos..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+      </div>
+
+      {filteredVideos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
-          {videos.map((video) => (
+          {filteredVideos.map((video) => (
             <VideoCard
               key={video.id}
               video={video}
@@ -67,11 +87,13 @@ function Videos() {
       ) : (
         <div className="bg-white rounded-2xl border p-10 text-center">
           <h2 className="text-xl font-semibold">
-            No Videos Available
+            {search ? "No Videos Found" : "No Videos Available"}
           </h2>
 
           <p className="text-gray-500 mt-2">
-            Videos will appear here once they are assigned.
+            {search
+              ? "Try searching with a different video title."
+              : "Videos will appear here once they are assigned."}
           </p>
         </div>
       )}

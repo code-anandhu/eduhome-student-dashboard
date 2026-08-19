@@ -13,6 +13,7 @@ function Chapters() {
 
   const [chapters, setChapters] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   const fetchChapters = async () => {
   try {
@@ -33,9 +34,11 @@ useEffect(() => {
   fetchChapters();
 }, [subjectId]);
 
-  const Chapters = chapters.filter(
-    (chapter) => chapter.subjectId === Number(subjectId)
-  );
+const Chapters = chapters.filter(
+  (chapter) =>
+    chapter.subjectId === Number(subjectId) &&
+    chapter.title.toLowerCase().includes(search.toLowerCase())
+);
 
 if (loading) {
   return (
@@ -62,6 +65,18 @@ if (loading) {
           Select a chapter to view the available videos.
 
         </p>
+
+      </div>
+
+      {/* ṣearch chapters  */}
+
+      <div className="bg-white rounded-2xl border p-4">
+
+        <input type="text"
+        placeholder="Search chapters..."
+        value={search}
+        onChange={(e)=>setSearch(e.target.value)}
+        className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
       </div>
 
