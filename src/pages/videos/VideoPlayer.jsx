@@ -57,7 +57,7 @@ function VideoPlayer() {
 
   // ---------------- Common Values ----------------
 
-  const videoUrl = video?.videoUrl || "";
+  const videoUrl = video?.streamUrl || "";
 
   const isYoutube =
     videoUrl.includes("youtube.com") ||
