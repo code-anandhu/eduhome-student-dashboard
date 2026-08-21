@@ -19,36 +19,38 @@ function VideoPlayer() {
 
   const videoRef = useRef(null);
 
+  const student = JSON.parse(localStorage.getItem("student") || "{}")
+
   // ---------------- Fetch Video ----------------
 
   useEffect(() => {
-  const fetchVideo = async () => {
-    setLoading(true)
-    setError("")
-  try {
-    const response = await getVideoById(videoId);
+    const fetchVideo = async () => {
+      setLoading(true)
+      setError("")
+      try {
+        const response = await getVideoById(videoId);
 
-    console.log("Video Response:", response);
+        console.log("Video Response:", response);
 
-    setVideo(response.result);
+        setVideo(response.result);
 
-  } catch (error) {
+      } catch (error) {
 
-    console.error(error);
+        console.error(error);
 
-    if (error.response?.status === 403) {
-      setError(
-        error.response.data?.message ||
-        "You don't have access to this video."
-      );
-    }
+        if (error.response?.status === 403) {
+          setError(
+            error.response.data?.message ||
+            "You don't have access to this video."
+          );
+        }
 
-  } finally {
+      } finally {
 
-    setLoading(false);
+        setLoading(false);
 
-  }
-};
+      }
+    };
 
     fetchVideo();
   }, [videoId]);
@@ -81,22 +83,22 @@ function VideoPlayer() {
   //--------------------- resume function ------------------
 
   const loadVideoProgress = async () => {
-  try {
-    const response = await getVideoProgress(videoId);
+    try {
+      const response = await getVideoProgress(videoId);
 
-    console.log("Video Progress:", response);
+      console.log("Video Progress:", response);
 
-    const position =
-      response.result?.positionSeconds || 0;
+      const position =
+        response.result?.positionSeconds || 0;
 
-    if (videoRef.current && position > 0) {
-      videoRef.current.currentTime = position;
+      if (videoRef.current && position > 0) {
+        videoRef.current.currentTime = position;
+      }
+
+    } catch (error) {
+      console.error(error);
     }
-
-  } catch (error) {
-    console.error(error);
-  }
-};
+  };
 
   // ---------------- Save Progress ----------------
 
@@ -120,7 +122,7 @@ function VideoPlayer() {
         isCompleted: progress >= 100,
       });
 
-      
+
 
       console.log("Progress Saved");
     } catch (error) {
@@ -131,7 +133,7 @@ function VideoPlayer() {
   // ---------------- Auto Save ----------------
 
   useEffect(() => {
-     console.log("isYoutube =", isYoutube);
+    console.log("isYoutube =", isYoutube);
 
     if (!video || isYoutube) return;
 
@@ -148,19 +150,19 @@ function VideoPlayer() {
 
   if (loading) {
     return (
-    <PageLoader text="Loading video..."/>
+      <PageLoader text="Loading video..." />
     );
   }
 
   if (error) {
-  return (
-    <div className="text-center mt-20">
-      <h2 className="text-xl font-bold text-red-600">
-        {error}
-      </h2>
-    </div>
-  );
-}
+    return (
+      <div className="text-center mt-20">
+        <h2 className="text-xl font-bold text-red-600">
+          {error}
+        </h2>
+      </div>
+    );
+  }
 
   // ---------------- No Video ----------------
 
@@ -180,7 +182,7 @@ function VideoPlayer() {
       {/* Header */}
 
       <div>
-       <BackButton/>
+        <BackButton />
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Video Player
         </h1>
@@ -194,30 +196,44 @@ function VideoPlayer() {
 
       <div className="flex justify-center">
 
-        {isYoutube ? (
+        <div className="relative w-full max-w-5xl">
 
-          <iframe
-            src={getYoutubeEmbedUrl(videoUrl)}
-            title={video.title}
-            className="w-full max-w-5xl aspect-video rounded-2xl shadow-xl"
-            allowFullScreen
-          />
+          {isYoutube ? (
 
-        ) : (
+            <iframe
+              src={getYoutubeEmbedUrl(videoUrl)}
+              title={video.title}
+              className="w-full aspect-video rounded-2xl shadow-xl"
+              allowFullScreen
+            />
 
-          <video
-            ref={videoRef}
-            src={videoUrl}
-            controls
-            onLoadedMetadata={loadVideoProgress}
-            onPause={handleSaveProgress}
-            onEnded={handleSaveProgress}
-            className="w-full max-w-5xl aspect-video rounded-2xl shadow-xl bg-black"
-          >
-            Your browser does not support the video tag.
-          </video>
+          ) : (
 
-        )}
+            <video
+              ref={videoRef}
+              src={videoUrl}
+              controls
+              controlsList="nodownload"
+              disablePictureInPicture
+              playsInline
+              onContextMenu={(e) => e.preventDefault()}
+              onLoadedMetadata={loadVideoProgress}
+              onPause={handleSaveProgress}
+              onEnded={handleSaveProgress}
+              className="w-full aspect-video rounded-2xl shadow-xl bg-black"
+            >
+              Your browser does not support the video tag.
+            </video>
+
+          )}
+
+          {/* Watermark */}
+
+          <div className="pointer-events-none absolute top-4 right-4 z-10 select-none text-white/70 text-xs sm:text-sm font-medium bg-black/30 px-3 py-2 rounded-lg">
+            {student.name || student.fullName || "EduHome Student"}
+          </div>
+
+        </div>
 
       </div>
 
