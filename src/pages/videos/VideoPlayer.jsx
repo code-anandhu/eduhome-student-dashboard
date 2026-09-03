@@ -8,8 +8,6 @@ import {
 import PageLoader from "../../components/common/PageLoader";
 import BackButton from "../../components/common/BackButton";
 
-
-
 function VideoPlayer() {
   const { videoId } = useParams();
 
@@ -20,36 +18,32 @@ function VideoPlayer() {
   const videoRef = useRef(null);
   const [securityBlocked, setSecurityBlocked] = useState(false);
 
-  const student = JSON.parse(localStorage.getItem("student") || "{}")
+  const student = JSON.parse(localStorage.getItem("student") || "{}");
 
   // ---------------- Fetch Video ----------------
 
   useEffect(() => {
     const fetchVideo = async () => {
-      setLoading(true)
-      setError("")
+      setLoading(true);
+      setError("");
+
       try {
         const response = await getVideoById(videoId);
 
         console.log("Video Response:", response);
 
         setVideo(response.result);
-
       } catch (error) {
-
         console.error(error);
 
         if (error.response?.status === 403) {
           setError(
             error.response.data?.message ||
-            "You don't have access to this video."
+              "You don't have access to this video."
           );
         }
-
       } finally {
-
         setLoading(false);
-
       }
     };
 
@@ -81,7 +75,7 @@ function VideoPlayer() {
     return url;
   };
 
-  //--------------------- resume function ------------------
+  // ---------------- Resume Function ----------------
 
   const loadVideoProgress = async () => {
     try {
@@ -95,7 +89,6 @@ function VideoPlayer() {
       if (videoRef.current && position > 0) {
         videoRef.current.currentTime = position;
       }
-
     } catch (error) {
       console.error(error);
     }
@@ -123,8 +116,6 @@ function VideoPlayer() {
         isCompleted: progress >= 100,
       });
 
-
-
       console.log("Progress Saved");
     } catch (error) {
       console.error("Progress Save Error:", error);
@@ -134,7 +125,6 @@ function VideoPlayer() {
   // ---------------- Video Security ----------------
 
   useEffect(() => {
-
     const freezeVideo = (reason) => {
       const video = videoRef.current;
 
@@ -147,38 +137,85 @@ function VideoPlayer() {
       setSecurityBlocked(true);
     };
 
-    // Keyboard press
+    // Keys that are allowed
+    const allowedKeys = [
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Backspace",
+      "Tab",
+      "Enter",
+      " ",
+      "Home",
+      "End"
+    ];
+
+    // Keyboard security
     const handleKeyDown = (e) => {
+      // Allow normal navigation keys
+      if (allowedKeys.includes(e.key)) {
+        return;
+      }
 
-      freezeVideo(`Key pressed: ${e.key}`);
+      // F12
+      if (e.key === "F12") {
+        freezeVideo("F12 pressed");
 
-      e.preventDefault();
-      e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
+
+        return;
+      }
+
+      // Ctrl combinations
+      if (e.ctrlKey) {
+        freezeVideo(`Ctrl + ${e.key}`);
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        return;
+      }
+
+      // Alt combinations
+      if (e.altKey) {
+        freezeVideo(`Alt + ${e.key}`);
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        return;
+      }
+
+      // Windows / Meta key combinations
+      if (e.metaKey) {
+        freezeVideo(`Meta + ${e.key}`);
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        return;
+      }
     };
 
     // Tab switch / minimize
     const handleVisibility = () => {
-
       if (document.hidden) {
         freezeVideo("Page hidden");
       }
-
     };
 
     // Browser/window loses focus
     const handleBlur = () => {
-
       freezeVideo("Window lost focus");
-
     };
 
     // Fullscreen exit
     const handleFullscreen = () => {
-
       if (!document.fullscreenElement) {
         freezeVideo("Exited fullscreen");
       }
-
     };
 
     document.addEventListener(
@@ -203,7 +240,6 @@ function VideoPlayer() {
     );
 
     return () => {
-
       document.removeEventListener(
         "keydown",
         handleKeyDown,
@@ -224,11 +260,8 @@ function VideoPlayer() {
         "fullscreenchange",
         handleFullscreen
       );
-
     };
-
   }, []);
-
 
   // ---------------- Auto Save ----------------
 
@@ -249,10 +282,10 @@ function VideoPlayer() {
   // ---------------- Loading ----------------
 
   if (loading) {
-    return (
-      <PageLoader text="Loading video..." />
-    );
+    return <PageLoader text="Loading video..." />;
   }
+
+  // ---------------- Error ----------------
 
   if (error) {
     return (
@@ -283,6 +316,7 @@ function VideoPlayer() {
 
       <div>
         <BackButton />
+
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Video Player
         </h1>
@@ -297,9 +331,13 @@ function VideoPlayer() {
       <div className="flex justify-center">
 
         <div className="relative w-full max-w-5xl">
+
+          {/* Security Overlay */}
+
           {securityBlocked && (
             <div className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-black/90">
               <div className="text-center text-white px-6">
+
                 <h2 className="text-xl md:text-2xl font-bold">
                   Video Playback Stopped
                 </h2>
@@ -307,21 +345,21 @@ function VideoPlayer() {
                 <p className="mt-2 text-sm md:text-base text-gray-300">
                   Video stopped due to security policy.
                 </p>
+
               </div>
             </div>
           )}
 
-          {isYoutube ? (
+          {/* YouTube */}
 
+          {isYoutube ? (
             <iframe
               src={getYoutubeEmbedUrl(videoUrl)}
               title={video.title}
               className="w-full aspect-video rounded-2xl shadow-xl"
               allowFullScreen
             />
-
           ) : (
-
             <video
               ref={videoRef}
               src={videoUrl}
@@ -337,13 +375,14 @@ function VideoPlayer() {
             >
               Your browser does not support the video tag.
             </video>
-
           )}
 
           {/* Watermark */}
 
           <div className="pointer-events-none absolute top-4 right-4 z-10 select-none text-white/70 text-xs sm:text-sm font-medium bg-black/30 px-3 py-2 rounded-lg">
-            {student.name || student.fullName || "EduHome Student"}
+            {student.name ||
+              student.fullName ||
+              "EduHome Student"}
           </div>
 
         </div>
