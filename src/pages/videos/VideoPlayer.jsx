@@ -18,6 +18,7 @@ function VideoPlayer() {
   const [error, setError] = useState("");
 
   const videoRef = useRef(null);
+  const [securityBlocked, setSecurityBlocked] = useState(false);
 
   const student = JSON.parse(localStorage.getItem("student") || "{}")
 
@@ -130,6 +131,105 @@ function VideoPlayer() {
     }
   };
 
+  // ---------------- Video Security ----------------
+
+  useEffect(() => {
+
+    const freezeVideo = (reason) => {
+      const video = videoRef.current;
+
+      if (!video) return;
+
+      video.pause();
+
+      console.log(`Video stopped: ${reason}`);
+
+      setSecurityBlocked(true);
+    };
+
+    // Keyboard press
+    const handleKeyDown = (e) => {
+
+      freezeVideo(`Key pressed: ${e.key}`);
+
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    // Tab switch / minimize
+    const handleVisibility = () => {
+
+      if (document.hidden) {
+        freezeVideo("Page hidden");
+      }
+
+    };
+
+    // Browser/window loses focus
+    const handleBlur = () => {
+
+      freezeVideo("Window lost focus");
+
+    };
+
+    // Fullscreen exit
+    const handleFullscreen = () => {
+
+      if (!document.fullscreenElement) {
+        freezeVideo("Exited fullscreen");
+      }
+
+    };
+
+    document.addEventListener(
+      "keydown",
+      handleKeyDown,
+      true
+    );
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibility
+    );
+
+    window.addEventListener(
+      "blur",
+      handleBlur
+    );
+
+    document.addEventListener(
+      "fullscreenchange",
+      handleFullscreen
+    );
+
+    return () => {
+
+      document.removeEventListener(
+        "keydown",
+        handleKeyDown,
+        true
+      );
+
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibility
+      );
+
+      window.removeEventListener(
+        "blur",
+        handleBlur
+      );
+
+      document.removeEventListener(
+        "fullscreenchange",
+        handleFullscreen
+      );
+
+    };
+
+  }, []);
+
+
   // ---------------- Auto Save ----------------
 
   useEffect(() => {
@@ -197,6 +297,19 @@ function VideoPlayer() {
       <div className="flex justify-center">
 
         <div className="relative w-full max-w-5xl">
+          {securityBlocked && (
+            <div className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-black/90">
+              <div className="text-center text-white px-6">
+                <h2 className="text-xl md:text-2xl font-bold">
+                  Video Playback Stopped
+                </h2>
+
+                <p className="mt-2 text-sm md:text-base text-gray-300">
+                  Video stopped due to security policy.
+                </p>
+              </div>
+            </div>
+          )}
 
           {isYoutube ? (
 
