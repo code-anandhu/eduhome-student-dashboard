@@ -16,7 +16,7 @@ function VideoPlayer() {
   const [error, setError] = useState("");
 
   const videoRef = useRef(null);
-  const [securityBlocked, setSecurityBlocked] = useState(false);
+  // const [securityBlocked, setSecurityBlocked] = useState(false);
 
   const student = JSON.parse(localStorage.getItem("student") || "{}");
 
@@ -124,144 +124,144 @@ function VideoPlayer() {
 
   // ---------------- Video Security ----------------
 
-  useEffect(() => {
-    const freezeVideo = (reason) => {
-      const video = videoRef.current;
+  // useEffect(() => {
+  //   const freezeVideo = (reason) => {
+  //     const video = videoRef.current;
 
-      if (!video) return;
+  //     if (!video) return;
 
-      video.pause();
+  //     video.pause();
 
-      console.log(`Video stopped: ${reason}`);
+  //     console.log(`Video stopped: ${reason}`);
 
-      setSecurityBlocked(true);
-    };
+  //     setSecurityBlocked(true);
+  //   };
 
-    // Keys that are allowed
-    const allowedKeys = [
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowUp",
-      "ArrowDown",
-      "Backspace",
-      "Tab",
-      "Enter",
-      " ",
-      "Home",
-      "End"
-    ];
+  //   // Keys that are allowed
+  //   const allowedKeys = [
+  //     "ArrowLeft",
+  //     "ArrowRight",
+  //     "ArrowUp",
+  //     "ArrowDown",
+  //     "Backspace",
+  //     "Tab",
+  //     "Enter",
+  //     " ",
+  //     "Home",
+  //     "End"
+  //   ];
 
-    // Keyboard security
-    const handleKeyDown = (e) => {
-      // Allow normal navigation keys
-      if (allowedKeys.includes(e.key)) {
-        return;
-      }
+  //   // Keyboard security
+  //   const handleKeyDown = (e) => {
+  //     // Allow normal navigation keys
+  //     if (allowedKeys.includes(e.key)) {
+  //       return;
+  //     }
 
-      // F12
-      if (e.key === "F12") {
-        freezeVideo("F12 pressed");
+  //     // F12
+  //     if (e.key === "F12") {
+  //       freezeVideo("F12 pressed");
 
-        e.preventDefault();
-        e.stopPropagation();
+  //       e.preventDefault();
+  //       e.stopPropagation();
 
-        return;
-      }
+  //       return;
+  //     }
 
-      // Ctrl combinations
-      if (e.ctrlKey) {
-        freezeVideo(`Ctrl + ${e.key}`);
+  //     // Ctrl combinations
+  //     if (e.ctrlKey) {
+  //       freezeVideo(`Ctrl + ${e.key}`);
 
-        e.preventDefault();
-        e.stopPropagation();
+  //       e.preventDefault();
+  //       e.stopPropagation();
 
-        return;
-      }
+  //       return;
+  //     }
 
-      // Alt combinations
-      if (e.altKey) {
-        freezeVideo(`Alt + ${e.key}`);
+  //     // Alt combinations
+  //     if (e.altKey) {
+  //       freezeVideo(`Alt + ${e.key}`);
 
-        e.preventDefault();
-        e.stopPropagation();
+  //       e.preventDefault();
+  //       e.stopPropagation();
 
-        return;
-      }
+  //       return;
+  //     }
 
-      // Windows / Meta key combinations
-      if (e.metaKey) {
-        freezeVideo(`Meta + ${e.key}`);
+  //     // Windows / Meta key combinations
+  //     if (e.metaKey) {
+  //       freezeVideo(`Meta + ${e.key}`);
 
-        e.preventDefault();
-        e.stopPropagation();
+  //       e.preventDefault();
+  //       e.stopPropagation();
 
-        return;
-      }
-    };
+  //       return;
+  //     }
+  //   };
 
-    // Tab switch / minimize
-    const handleVisibility = () => {
-      if (document.hidden) {
-        freezeVideo("Page hidden");
-      }
-    };
+  //   // Tab switch / minimize
+  //   const handleVisibility = () => {
+  //     if (document.hidden) {
+  //       freezeVideo("Page hidden");
+  //     }
+  //   };
 
-    // Browser/window loses focus
-    const handleBlur = () => {
-      freezeVideo("Window lost focus");
-    };
+  //   // Browser/window loses focus
+  //   const handleBlur = () => {
+  //     freezeVideo("Window lost focus");
+  //   };
 
-    // Fullscreen exit
-    const handleFullscreen = () => {
-      if (!document.fullscreenElement) {
-        freezeVideo("Exited fullscreen");
-      }
-    };
+  //   // Fullscreen exit
+  //   const handleFullscreen = () => {
+  //     if (!document.fullscreenElement) {
+  //       freezeVideo("Exited fullscreen");
+  //     }
+  //   };
 
-    document.addEventListener(
-      "keydown",
-      handleKeyDown,
-      true
-    );
+  //   document.addEventListener(
+  //     "keydown",
+  //     handleKeyDown,
+  //     true
+  //   );
 
-    document.addEventListener(
-      "visibilitychange",
-      handleVisibility
-    );
+  //   document.addEventListener(
+  //     "visibilitychange",
+  //     handleVisibility
+  //   );
 
-    window.addEventListener(
-      "blur",
-      handleBlur
-    );
+  //   window.addEventListener(
+  //     "blur",
+  //     handleBlur
+  //   );
 
-    document.addEventListener(
-      "fullscreenchange",
-      handleFullscreen
-    );
+  //   document.addEventListener(
+  //     "fullscreenchange",
+  //     handleFullscreen
+  //   );
 
-    return () => {
-      document.removeEventListener(
-        "keydown",
-        handleKeyDown,
-        true
-      );
+  //   return () => {
+  //     document.removeEventListener(
+  //       "keydown",
+  //       handleKeyDown,
+  //       true
+  //     );
 
-      document.removeEventListener(
-        "visibilitychange",
-        handleVisibility
-      );
+  //     document.removeEventListener(
+  //       "visibilitychange",
+  //       handleVisibility
+  //     );
 
-      window.removeEventListener(
-        "blur",
-        handleBlur
-      );
+  //     window.removeEventListener(
+  //       "blur",
+  //       handleBlur
+  //     );
 
-      document.removeEventListener(
-        "fullscreenchange",
-        handleFullscreen
-      );
-    };
-  }, []);
+  //     document.removeEventListener(
+  //       "fullscreenchange",
+  //       handleFullscreen
+  //     );
+  //   };
+  // }, []);
 
   // ---------------- Auto Save ----------------
 
@@ -334,7 +334,7 @@ function VideoPlayer() {
 
           {/* Security Overlay */}
 
-          {securityBlocked && (
+          {/* {securityBlocked && (
             <div className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-black/90">
               <div className="text-center text-white px-6">
 
@@ -348,7 +348,7 @@ function VideoPlayer() {
 
               </div>
             </div>
-          )}
+          )} */}
 
           {/* YouTube */}
 
