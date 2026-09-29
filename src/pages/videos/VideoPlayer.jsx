@@ -213,10 +213,10 @@ function VideoPlayer() {
               ref={videoRef}
               src={videoUrl}
               controls
-              controlsList="nodownload"
-              disablePictureInPicture
+              // controlsList="nodownload"
+              // disablePictureInPicture
               playsInline
-              onContextMenu={(e) => e.preventDefault()}
+              // onContextMenu={(e) => e.preventDefault()}
               onLoadedMetadata={loadVideoProgress}
               onPause={handleSaveProgress}
               onEnded={handleSaveProgress}
