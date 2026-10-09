@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB6Klq373uwOTZoa6RVWfWI4aXLOP0xQYk",
-  authDomain: "eduhome-d8b01.firebaseapp.com",
-  projectId: "eduhome-d8b01",
-  storageBucket: "eduhome-d8b01.firebasestorage.app",
-  messagingSenderId: "610177244432",
-  appId: "1:610177244432:web:200224863a7e2575571995",
-  measurementId: "G-SCBM6PCWPB"
+  apiKey: "AIzaSyAkjWnhqr1dUqcqGZJgw6RQswQpV9LgybY",
+  authDomain: "eduhome-55323.firebaseapp.com",
+  projectId: "eduhome-55323",
+  storageBucket: "eduhome-55323.firebasestorage.app",
+  messagingSenderId: "814180495434",
+  appId: "1:814180495434:web:a3b28453d90202235776b3",
+  measurementId: "G-KME8E0HHL1"
 };
 
 
