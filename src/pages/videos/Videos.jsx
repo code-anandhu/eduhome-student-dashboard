@@ -25,7 +25,15 @@ function Videos() {
 
       console.log("Videos Response:", response);
 
-      setVideos(response.result?.videos || []);
+      const videoList = response.result?.videos || [];
+
+      setVideos(
+        [...videoList].sort(
+          (a, b) => Number(a.sorting) - Number(b.sorting)
+        )
+      );
+
+
     } catch (error) {
       console.error(error);
       setVideos([]);
@@ -63,17 +71,17 @@ function Videos() {
 
       {/* Search Videos */}
 
-      
 
-        <input
-          type="text"
-          placeholder="Search videos..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm  border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
 
-      
+      <input
+        type="text"
+        placeholder="Search videos..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full max-w-sm  border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+
 
       {filteredVideos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
