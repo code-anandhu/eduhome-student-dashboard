@@ -28,9 +28,27 @@ function Videos() {
       const videoList = response.result?.videos || [];
 
       setVideos(
-        [...videoList].sort(
-          (a, b) => Number(a.sorting) - Number(b.sorting)
-        )
+        [...videoList].sort((a, b) => {
+          const titleA = String(a.title ?? "").trim();
+          const titleB = String(b.title ?? "").trim();
+
+          const numberA = Number(titleA);
+          const numberB = Number(titleB);
+
+          if (
+            titleA !== "" &&
+            titleB !== "" &&
+            Number.isFinite(numberA) &&
+            Number.isFinite(numberB)
+          ) {
+            return numberA - numberB;
+          }
+
+          return titleA.localeCompare(titleB, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          });
+        })
       );
 
 
